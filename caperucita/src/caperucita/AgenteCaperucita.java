@@ -16,21 +16,18 @@ public class AgenteCaperucita extends SearchBasedAgent {
 
     public AgenteCaperucita() {
 
-        // The Pacman Goal
-        PacmanGoal goal = new PacmanGoal();
+        CaperucitaGoal goal = new CaperucitaGoal();
 
-        // The Pacman Agent State
-        EstadoAmbienteCaperucita estadoCaperucita = new EstadoAgenteCaperucita();
+        EstadoAgenteCaperucita estadoCaperucita = new EstadoAgenteCaperucita();
         this.setAgentState(estadoCaperucita);
 
-        // Create the operators
         Vector<SearchAction> operators = new Vector<SearchAction>();
-        operators.addElement(new Eat());
-        operators.addElement(new Fight());
-        operators.addElement(new GoLeft());
-        operators.addElement(new GoUp());
-        operators.addElement(new GoRight());
-        operators.addElement(new GoDown());
+        //operators.addElement(new Eat());
+        //operators.addElement(new Fight());
+        operators.addElement(new IrIzquierda());
+        operators.addElement(new IrArriba());
+        operators.addElement(new IrDerecha());
+        operators.addElement(new IrAbajo());
 
         Problem problem = new Problem(goal, estadoCaperucita, operators);
         this.setProblem(problem);

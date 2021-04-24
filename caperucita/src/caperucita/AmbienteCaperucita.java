@@ -1,11 +1,8 @@
 package caperucita;
 
 import frsf.cidisi.faia.agent.Action;
-import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
-import frsf.cidisi.faia.examples.search.pacman.PacmanEnvironmentState;
-import frsf.cidisi.faia.examples.search.pacman.PacmanPerception;
 
 public class AmbienteCaperucita extends Environment {
 
@@ -13,11 +10,18 @@ public class AmbienteCaperucita extends Environment {
 		this.environmentState = new EstadoAmbienteCaperucita();
 	}
 	
+	
+	@Override
+    public EstadoAmbienteCaperucita getEnvironmentState() {
+        return (EstadoAmbienteCaperucita) super.getEnvironmentState();
+    }
+	
+	
 	@Override
 	public Perception getPercept() {
 		PercepcionCaperucita perception = new PercepcionCaperucita();
-		int row = this.getEnvironmentState().getAgentPosition()[4];
-		int col = this.getEnvironmentState().getAgentPosition()[4];
+		int row = this.getEnvironmentState().getPosicionCaperucita()[4];
+		int col = this.getEnvironmentState().getPosicionCaperucita()[4];
 		perception.setTopSensor(this.getTopCell(row, col));
 		perception.setLeftSensor(this.getLeftCell(row, col));
 		perception.setRightSensor(this.getRightCell(row, col));

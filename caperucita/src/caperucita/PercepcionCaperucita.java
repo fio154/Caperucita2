@@ -27,14 +27,16 @@ public class PercepcionCaperucita extends Perception{
 	public void initPerception(Agent agent, Environment environment) {
 		
 		AgenteCaperucita agenteCaperucita = (AgenteCaperucita) agent;
-		AmbienteCaperucita ambienteCaperucita = (AmbienteCaperucita) ambiente;
+		AmbienteCaperucita ambienteCaperucita = (AmbienteCaperucita) environment;
 		EstadoAmbienteCaperucita estadoAmbiente = ambienteCaperucita.getEnvironmentState();
-		int row = environmentState.getAgentPosition()[0];
-		int col = environmentState.getAgentPosition()[1];
-		this.setTopSensor(pacmanEnvironment.getTopCell(row, col));
-		this.setLeftSensor(pacmanEnvironment.getLeftCell(row, col));
-		this.setRightSensor(pacmanEnvironment.getRightCell(row, col));
-		this.setBottomSensor(pacmanEnvironment.getBottomCell(row, col));
+		
+		int row = estadoAmbiente.getPosicionCaperucita()[0];
+		int col = estadoAmbiente.getPosicionCaperucita()[1];
+		
+		this.setTopSensor(ambienteCaperucita.getTopCell(row, col));
+		this.setLeftSensor(ambienteCaperucita.getLeftCell(row, col));
+		this.setRightSensor(ambienteCaperucita.getRightCell(row, col));
+		this.setBottomSensor(ambienteCaperucita.getBottomCell(row, col));
 		
 	}
 	
