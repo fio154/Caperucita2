@@ -22,7 +22,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
     }
 
     public EstadoAgenteCaperucita() {
-    	bosque = new int[4][4];
+    	bosque = new int[9][7];
         position = new int[2];
         vidas = 0;
         this.initState();
@@ -31,7 +31,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
 
     @Override
     public SearchBasedAgentState clone() {
-        int[][] nuevoBosque = new int[4][4];
+        int[][] nuevoBosque = new int[9][7];
 
         for (int row = 0; row < bosque.length; row++) {
             for (int col = 0; col < bosque.length; col++) {
@@ -50,50 +50,50 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
 
     @Override
     public void updateState(Perception p) {
-        PercepcionCaperucita pacmanPerception = (PercepcionCaperucita) p;
+        PercepcionCaperucita percepcionCaperucita = (PercepcionCaperucita) p;
 
         int row = this.getRowPosition();
         int col = this.getColumnPosition();
 
         if (col == 0) {
-            col = 3;
+            col = 6;
         } else {
             col = col - 1;
         }
-        bosque[row][col] = pacmanPerception.getLeftSensor();
+        bosque[row][col] = percepcionCaperucita.getLeftSensor();
 
         row = this.getRowPosition();
         col = this.getColumnPosition();
 
-        if (col == 3) {
+        if (col == 6) {
             col = 0;
         } else {
             col = col + 1;
         }
-        bosque[row][col] = pacmanPerception.getRightSensor();
+        bosque[row][col] = percepcionCaperucita.getRightSensor();
 
         row = this.getRowPosition();
         col = this.getColumnPosition();
 
         if (row == 0) {
-            row = 3;
+            row = 8;
         } else {
             row = row - 1;
         }
-        bosque[row][col] = pacmanPerception.getTopSensor();
+        bosque[row][col] = percepcionCaperucita.getTopSensor();
 
 
         row = this.getRowPosition();
         col = this.getColumnPosition();
 
-        if (row == 3) {
+        if (row == 8) {
             row = 0;
         } else {
             row = row + 1;
         }
-        bosque[row][col] = pacmanPerception.getBottomSensor();
+        bosque[row][col] = percepcionCaperucita.getBottomSensor();
 
-        vidas = pacmanPerception.getVidas();
+        vidas = percepcionCaperucita.getVidas();
     }
 
 
@@ -108,7 +108,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         this.setRowPosition(1);
         this.setColumnPosition(1);
 
-        this.setVidas(50);
+        this.setVidas(3);
     }
 
     @Override

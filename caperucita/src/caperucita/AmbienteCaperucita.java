@@ -20,8 +20,8 @@ public class AmbienteCaperucita extends Environment {
 	@Override
 	public Perception getPercept() {
 		PercepcionCaperucita perception = new PercepcionCaperucita();
-		int row = this.getEnvironmentState().getPosicionCaperucita()[4];
-		int col = this.getEnvironmentState().getPosicionCaperucita()[4];
+		int row = this.getEnvironmentState().getPosicionCaperucita()[3];
+		int col = this.getEnvironmentState().getPosicionCaperucita()[3];
 		perception.setTopSensor(this.getTopCell(row, col));
 		perception.setLeftSensor(this.getLeftCell(row, col));
 		perception.setRightSensor(this.getRightCell(row, col));

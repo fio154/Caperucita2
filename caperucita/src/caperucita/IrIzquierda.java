@@ -15,8 +15,7 @@ public class IrIzquierda extends SearchAction {
         estadoCaperucita.increaseVisitedCellsCount();
 
         int row = estadoCaperucita.getRowPosition();
-        
-        for(int i=0; i<10; i++);
+
         int col = estadoCaperucita.getColumnPosition();
 
         if (col > 0) {

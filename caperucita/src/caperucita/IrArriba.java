@@ -18,7 +18,7 @@ public class IrArriba extends SearchAction {
         int col = estadoCaperucita.getColumnPosition();
 
         if (row == 0) {
-            row = 3;
+            row = 8;
         } else {
             row = row - 1;
         }
@@ -48,7 +48,7 @@ public class IrArriba extends SearchAction {
 
         // Check the limits of the world
         if (row == 0) {
-            row = 3;
+            row = 8;
         } else {
             row = row - 1;
         }
