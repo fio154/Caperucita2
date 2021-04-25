@@ -10,6 +10,7 @@ public class PercepcionCaperucita extends Perception{
 	public static int EMPTY_PERCEPTION = 0;
 	public static int LOBO_PERCEPTION = 1;
 	public static int DULCE_PERCEPTION = 2;
+    public static int FLORES_PERCEPTION = 3;
 	private int leftSensor;
 	private int topSensor;
 	private int rightSensor;

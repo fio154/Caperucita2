@@ -7,13 +7,17 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 	private int[][] bosque;
 	private int[] posicionCaperucita;
 	private int vidas;
+
+	private int CANT_OBSTACULOS = 15;
+	private int CANT_FILAS = 7;
+	private int CANT_COLUM = 9;
 	
 	public EstadoAmbienteCaperucita (int[][] m) {
 		bosque= m;
 	}
 	
 	public EstadoAmbienteCaperucita() {
-		bosque= new int[4][4];
+		bosque= new int[CANT_FILAS][CANT_COLUM];
 		this.initState();
 	}
 	
@@ -23,9 +27,30 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 				bosque[row][col] = PercepcionCaperucita.EMPTY_PERCEPTION;
 			}
 		}
-		generarPosicionFlores();
+		bosque[1][1]=2;
+		bosque[1][5]=-1;
+		bosque[1][8]=2;
+		bosque[1][9]=-1;
+		bosque[2][1]=-1;
+		bosque[2][3]=-1;
+		bosque[3][6]=2;
+		bosque[3][7]=-1;
+		bosque[4][1]=-1;
+		bosque[4][2]=-1;
+		bosque[4][6]=-1;
+		bosque[5][2]=-1;
+		bosque[5][3]=-1;
+		bosque[6][2]=1; //lobo
+		bosque[6][3]=-1;
+		bosque[6][4]=-1;
+		bosque[6][5]=-1;
+		bosque[6][7]=-1;
+		bosque[6][9]=-1;
+		bosque[7][4]=-1;
+		bosque[7][5]=3;//flores
+		/*generarPosicionFlores();
 		generarPosicionesObstaculosYLobo();
-		generarPosicionCaperucita();
+		generarPosicionCaperucita();*/
 		this.setVidas(3);
 	}
 	
@@ -103,15 +128,40 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 	}
 	
 	public void generarPosicionFlores() {
-		
+		int [] celda = generarCeldaAleatoria();
+		bosque[celda[0]][celda[1]] = 1; //Seteamos posición del camino de flores
 	}
 	
 	public void generarPosicionesObstaculosYLobo() {
-		
+		//Generamos una cantidad de obtaculos definidos por una constante y el lobo
+		for (int i=0;i<CANT_OBSTACULOS;i++) {
+			int [] celda = generarCeldaAleatoria();
+			while (bosque[celda[0]][celda[1]] == -1 || bosque[celda[0]][celda[1]] == 3) {
+				celda = generarCeldaAleatoria();
+			}
+			bosque[celda[0]][celda[1]] = -1; //Seteamos posición de obstaculos
+		}
+		int [] celda = generarCeldaAleatoria();
+		while (bosque[celda[0]][celda[1]] == -1 || bosque[celda[0]][celda[1]] == 3) {
+			celda = generarCeldaAleatoria();
+		}
+		bosque[celda[0]][celda[1]] = 1; //Seteamos posición del LOBO
 	}
 
 	public void generarPosicionCaperucita() {
-		
+		int [] celda = generarCeldaAleatoria();
+		while (bosque[celda[0]][celda[1]] == -1 || bosque[celda[0]][celda[1]] == 3 || bosque[celda[0]][celda[1]] == 1) {
+			celda = generarCeldaAleatoria();
+		}
+		posicionCaperucita[0] = celda[0];
+		posicionCaperucita[1] = celda[1];
+	}
+
+	public int[] generarCeldaAleatoria() { //Generamos una fila y columna aleatorias
+		int[] celda = new int[2];
+		celda[0] = (int) Math.floor(Math.random()*CANT_FILAS);
+		celda[1] = (int) Math.floor(Math.random()*CANT_COLUM);
+		return celda;
 	}
 	
 }
