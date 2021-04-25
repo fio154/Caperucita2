@@ -7,8 +7,12 @@ public class CaperucitaGoal extends GoalTest {
 
     @Override
     public boolean isGoalState(AgentState agentState) {
-        if (((EstadoAgenteCaperucita) agentState).isNoMoreFood() &&
-                ((EstadoAgenteCaperucita) agentState).esAmbienteConocido()) {
+        int fila = ((EstadoAgenteCaperucita) agentState).getRowPosition();
+        int columna = ((EstadoAgenteCaperucita) agentState).getColumnPosition();
+
+        int tipoCelda = ((EstadoAgenteCaperucita) agentState).getBosquePosition(fila, columna);
+
+        if (tipoCelda==PercepcionCaperucita.FLORES_PERCEPTION && ((EstadoAgenteCaperucita) agentState).getVidas()>=1) {
             return true;
         }
         return false;

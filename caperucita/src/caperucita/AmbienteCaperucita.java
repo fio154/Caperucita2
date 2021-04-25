@@ -20,8 +20,9 @@ public class AmbienteCaperucita extends Environment {
 	@Override
 	public Perception getPercept() {
 		PercepcionCaperucita perception = new PercepcionCaperucita();
-		int row = this.getEnvironmentState().getPosicionCaperucita()[4];
-		int col = this.getEnvironmentState().getPosicionCaperucita()[4];
+		int row = this.getEnvironmentState().getPosicionCaperucita()[0];
+		int col = this.getEnvironmentState().getPosicionCaperucita()[1];
+
 		perception.setTopSensor(this.getTopCell(row, col));
 		perception.setLeftSensor(this.getLeftCell(row, col));
 		perception.setRightSensor(this.getRightCell(row, col));
@@ -34,8 +35,12 @@ public class AmbienteCaperucita extends Environment {
 	public boolean agentFailed(Action actionReturned) {
 		EstadoAmbienteCaperucita estadoAmbienteCaperucita = this.getEnvironmentState();
 		int vidasCaperucita = estadoAmbienteCaperucita.getVidas();
-		
-		if (vidasCaperucita <= 0)return true;
+
+		int fila = estadoAmbienteCaperucita.getPosicionCaperucita()[0];
+		int columna = estadoAmbienteCaperucita.getPosicionCaperucita()[1];
+
+		int tipoCelda = estadoAmbienteCaperucita.getMapa()[fila][columna];
+		if (vidasCaperucita <= 0 && tipoCelda==PercepcionCaperucita.OBSTACULO_PERCEPTION)return true;
 		
 		return false;
 	}

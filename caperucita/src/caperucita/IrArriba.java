@@ -17,10 +17,14 @@ public class IrArriba extends SearchAction {
         int row = estadoCaperucita.getRowPosition();
         int col = estadoCaperucita.getColumnPosition();
 
-        if (row == 0) {
-            row = 3;
+        /*if (row == 0) {
+            row = 6;
         } else {
             row = row - 1;
+        }*/
+
+        if(row < EstadoAmbienteCaperucita.CANT_FILAS-1){
+            row++;
         }
 
         estadoCaperucita.setRowPosition(row);
@@ -48,7 +52,7 @@ public class IrArriba extends SearchAction {
 
         // Check the limits of the world
         if (row == 0) {
-            row = 3;
+            row = 8;
         } else {
             row = row - 1;
         }

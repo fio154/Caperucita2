@@ -17,10 +17,14 @@ public class IrAbajo extends SearchAction {
         int row = estadoCaperucita.getRowPosition();
         int col = estadoCaperucita.getColumnPosition();
 
-        if (row == 3) {
+        /*if (row == 6) {
             row = 0;
         } else {
             row = row + 1;
+        }*/
+
+        if(row > 0){
+            row--;
         }
 
         estadoCaperucita.setRowPosition(row);
@@ -46,7 +50,7 @@ public class IrAbajo extends SearchAction {
         int row = environmentState.getPosicionCaperucita()[0];
         int col = environmentState.getPosicionCaperucita()[1];
 
-        if (row == 3) {
+        if (row == 8) {
             row = 0;
         } else {
             row = row + 1;

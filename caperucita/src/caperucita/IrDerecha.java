@@ -17,7 +17,7 @@ public class IrDerecha extends SearchAction {
         int row = estadoCaperucita.getRowPosition();
         int col = estadoCaperucita.getColumnPosition();
 
-        if (col < estadoCaperucita.getBosque()[row].length) {
+        if (col < EstadoAmbienteCaperucita.CANT_COLUM-1) {
             col = col + 1;
         }
 
@@ -53,7 +53,7 @@ public class IrDerecha extends SearchAction {
         int row = environmentState.getPosicionCaperucita()[0];
         int col = environmentState.getPosicionCaperucita()[1];
 
-        if (col < environmentState.getBosque()[row].length) {
+        if (col < EstadoAmbienteCaperucita.CANT_COLUM) {
             col = col + 1;
         }
 
