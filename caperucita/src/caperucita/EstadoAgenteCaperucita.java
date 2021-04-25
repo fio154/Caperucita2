@@ -5,37 +5,37 @@ import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 
 public class EstadoAgenteCaperucita extends SearchBasedAgentState {
 
-    private int[][] world;
+    private int[][] bosque;
     private int[] position;
     private int[] initialPosition;
-    private int energy;
+    private int vidas;
     private int visitedCells;
 
-    public EstadoAgenteCaperucita(int[][] m, int row, int col, int e) {
-        world = m;
+    public EstadoAgenteCaperucita(int[][] b, int row, int col, int e) {
+    	bosque = b;
         position = new int[] {row, col};
         initialPosition = new int[2];
         initialPosition[0] = row;
         initialPosition[1] = col;
-        energy = e;
+        vidas = e;
         visitedCells = 0;
     }
 
     public EstadoAgenteCaperucita() {
-        world = new int[4][4];
+    	bosque = new int[4][4];
         position = new int[2];
-        energy = 0;
+        vidas = 0;
         this.initState();
     }
 
 
     @Override
     public SearchBasedAgentState clone() {
-        int[][] newWorld = new int[4][4];
+        int[][] nuevoBosque = new int[4][4];
 
-        for (int row = 0; row < world.length; row++) {
-            for (int col = 0; col < world.length; col++) {
-                newWorld[row][col] = world[row][col];
+        for (int row = 0; row < bosque.length; row++) {
+            for (int col = 0; col < bosque.length; col++) {
+                nuevoBosque[row][col] = bosque[row][col];
             }
         }
 
@@ -43,7 +43,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         newPosition[0] = position[0];
         newPosition[1] = position[1];
 
-        EstadoAgenteCaperucita newState = new EstadoAgenteCaperucita(newWorld, this.getRowPosition(), this.getColumnPosition(), this.energy);
+        EstadoAgenteCaperucita newState = new EstadoAgenteCaperucita(nuevoBosque, this.getRowPosition(), this.getColumnPosition(), this.vidas);
 
         return newState;
     }
@@ -60,7 +60,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         } else {
             col = col - 1;
         }
-        world[row][col] = pacmanPerception.getLeftSensor();
+        bosque[row][col] = pacmanPerception.getLeftSensor();
 
         row = this.getRowPosition();
         col = this.getColumnPosition();
@@ -70,7 +70,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         } else {
             col = col + 1;
         }
-        world[row][col] = pacmanPerception.getRightSensor();
+        bosque[row][col] = pacmanPerception.getRightSensor();
 
         row = this.getRowPosition();
         col = this.getColumnPosition();
@@ -80,7 +80,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         } else {
             row = row - 1;
         }
-        world[row][col] = pacmanPerception.getTopSensor();
+        bosque[row][col] = pacmanPerception.getTopSensor();
 
 
         row = this.getRowPosition();
@@ -91,24 +91,24 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         } else {
             row = row + 1;
         }
-        world[row][col] = pacmanPerception.getBottomSensor();
+        bosque[row][col] = pacmanPerception.getBottomSensor();
 
-        energy = pacmanPerception.getVidas();
+        vidas = pacmanPerception.getVidas();
     }
 
 
     @Override
     public void initState() {
-        for (int row = 0; row < world.length; row++) {
-            for (int col = 0; col < world.length; col++) {
-                world[row][col] = PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        for (int row = 0; row < bosque.length; row++) {
+            for (int col = 0; col < bosque.length; col++) {
+            	bosque[row][col] = PercepcionCaperucita.OBSTACULO_PERCEPTION;
             }
         }
         
         this.setRowPosition(1);
         this.setColumnPosition(1);
 
-        this.setEnergy(50);
+        this.setVidas(50);
     }
 
     @Override
@@ -116,16 +116,16 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         String str = "";
 
         str = str + " position=\"(" + getRowPosition() + "," + "" + getColumnPosition() + ")\"";
-        str = str + " energy=\"" + energy + "\"\n";
+        str = str + " vidas=\"" + vidas + "\"\n";
 
-        str = str + "world=\"[ \n";
-        for (int row = 0; row < world.length; row++) {
+        str = str + "bosque=\"[ \n";
+        for (int row = 0; row < bosque.length; row++) {
             str = str + "[ ";
-            for (int col = 0; col < world.length; col++) {
-                if (world[row][col] == -1) {
+            for (int col = 0; col < bosque.length; col++) {
+                if (bosque[row][col] == -1) {
                     str = str + "* ";
                 } else {
-                    str = str + world[row][col] + " ";
+                    str = str + bosque[row][col] + " ";
                 }
             }
             str = str + " ]\n";
@@ -140,12 +140,12 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         if (!(obj instanceof EstadoAgenteCaperucita))
             return false;
 
-        int[][] worldObj = ((EstadoAgenteCaperucita) obj).getWorld();
+        int[][] bosqueObj = ((EstadoAgenteCaperucita) obj).getBosque();
         int[] positionObj = ((EstadoAgenteCaperucita) obj).getPosition();
 
-        for (int row = 0; row < world.length; row++) {
-            for (int col = 0; col < world.length; col++) {
-                if (world[row][col] != worldObj[row][col]) {
+        for (int row = 0; row < bosque.length; row++) {
+            for (int col = 0; col < bosque.length; col++) {
+                if (bosque[row][col] != bosqueObj[row][col]) {
                     return false;
                 }
             }
@@ -158,16 +158,16 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         return true;
     }
     
-    public int[][] getWorld() {
-        return world;
+    public int[][] getBosque() {
+        return bosque;
     }
 
-    public int getWorldPosition(int row, int col) {
-        return world[row][col];
+    public int getBosquePosition(int row, int col) {
+        return bosque[row][col];
     }
 
-    public void setWorldPosition(int row, int col, int value) {
-        this.world[row][col] = value;
+    public void setBosquePosition(int row, int col, int value) {
+        this.bosque[row][col] = value;
     }
 
     public int[] getPosition() {
@@ -190,18 +190,18 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         return position[1];
     }
 
-    public int getEnergy() {
-        return energy;
+    public int getVidas() {
+        return vidas;
     }
 
-    private void setEnergy(int energy) {
-        this.energy = energy;
+    private void setVidas(int vidas) {
+        this.vidas = vidas;
     }
 
-    public boolean isAllWorldKnown() {
-        for (int row = 0; row < world.length; row++) {
-            for (int col = 0; col < world.length; col++) {
-                if (world[row][col] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+    public boolean esAmbienteConocido() {
+        for (int row = 0; row < bosque.length; row++) {
+            for (int col = 0; col < bosque.length; col++) {
+                if (bosque[row][col] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
                     return false;
                 }
             }
@@ -210,12 +210,12 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         return true;
     }
 
-    public int getUnknownCellsCount() {
+    public int getCeldasNoConocidas() {
         int result = 0;
 
-        for (int row = 0; row < world.length; row++) {
-            for (int col = 0; col < world.length; col++) {
-                if (world[row][col] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+        for (int row = 0; row < bosque.length; row++) {
+            for (int col = 0; col < bosque.length; col++) {
+                if (bosque[row][col] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
                     result++;
                 }
             }
@@ -227,9 +227,9 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
     public int getRemainingFoodCount() {
         int result = 0;
 
-        for (int row = 0; row < world.length; row++) {
-            for (int col = 0; col < world.length; col++) {
-                if (world[row][col] == PercepcionCaperucita.DULCE_PERCEPTION) {
+        for (int row = 0; row < bosque.length; row++) {
+            for (int col = 0; col < bosque.length; col++) {
+                if (bosque[row][col] == PercepcionCaperucita.DULCE_PERCEPTION) {
                     result++;
                 }
             }
@@ -239,9 +239,9 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
     }
 
     public boolean isNoMoreFood() {
-        for (int row = 0; row < world.length; row++) {
-            for (int col = 0; col < world.length; col++) {
-                if (world[row][col] == PercepcionCaperucita.DULCE_PERCEPTION) {
+        for (int row = 0; row < bosque.length; row++) {
+            for (int col = 0; col < bosque.length; col++) {
+                if (bosque[row][col] == PercepcionCaperucita.DULCE_PERCEPTION) {
                     return false;
                 }
             }

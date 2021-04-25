@@ -15,23 +15,30 @@ public class IrIzquierda extends SearchAction {
         estadoCaperucita.increaseVisitedCellsCount();
 
         int row = estadoCaperucita.getRowPosition();
+        
+        for(int i=0; i<10; i++);
         int col = estadoCaperucita.getColumnPosition();
 
-        if (col == 0) {
-            col = 3;
-        } else {
+        if (col > 0) {
             col = col - 1;
         }
 
         estadoCaperucita.setColumnPosition(col);
 
-        if (estadoCaperucita.getWorldPosition(row, col) !=
-                PercepcionCaperucita.EMPTY_PERCEPTION) {
-
-        	estadoCaperucita.setWorldPosition(row, col,
-        			PercepcionCaperucita.EMPTY_PERCEPTION);
-
-            return estadoCaperucita;
+        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.OBSTACULO_PERCEPTION);
+        }
+        
+        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.EMPTY_PERCEPTION) {
+            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.EMPTY_PERCEPTION);
+        }
+        
+        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.DULCE_PERCEPTION) {
+            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.DULCE_PERCEPTION);
+        }
+        
+        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.LOBO_PERCEPTION) {
+            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.LOBO_PERCEPTION);
         }
 
         return null;
@@ -49,9 +56,7 @@ public class IrIzquierda extends SearchAction {
         int row = environmentState.getPosicionCaperucita()[0];
         int col = environmentState.getPosicionCaperucita()[1];
 
-        if (col == 0) {
-            col = 3;
-        } else {
+        if (col > 0) {
             col = col - 1;
         }
 
@@ -69,6 +74,6 @@ public class IrIzquierda extends SearchAction {
 
     @Override
     public String toString() {
-        return "GoLeft";
+        return "IrIzquierda";
     }
 }

@@ -17,19 +17,26 @@ public class IrDerecha extends SearchAction {
         int row = estadoCaperucita.getRowPosition();
         int col = estadoCaperucita.getColumnPosition();
 
-        if (col == 3) {
-            col = 0;
-        } else {
+        if (col < estadoCaperucita.getBosque()[row].length) {
             col = col + 1;
         }
 
         estadoCaperucita.setColumnPosition(col);
 
-        if (estadoCaperucita.getWorldPosition(row, col) ==
-                PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-
-            estadoCaperucita.setWorldPosition(row, col,
-                    PercepcionCaperucita.EMPTY_PERCEPTION);
+        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.OBSTACULO_PERCEPTION);
+        }
+        
+        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.EMPTY_PERCEPTION) {
+            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.EMPTY_PERCEPTION);
+        }
+        
+        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.DULCE_PERCEPTION) {
+            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.DULCE_PERCEPTION);
+        }
+        
+        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.LOBO_PERCEPTION) {
+            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.LOBO_PERCEPTION);
         }
 
         return estadoCaperucita;
@@ -46,9 +53,7 @@ public class IrDerecha extends SearchAction {
         int row = environmentState.getPosicionCaperucita()[0];
         int col = environmentState.getPosicionCaperucita()[1];
 
-        if (col == 3) {
-            col = 0;
-        } else {
+        if (col < environmentState.getBosque()[row].length) {
             col = col + 1;
         }
 
@@ -66,6 +71,6 @@ public class IrDerecha extends SearchAction {
 
     @Override
     public String toString() {
-        return "GoRight";
+        return "IrDerecha";
     }
 }

@@ -25,11 +25,9 @@ public class IrArriba extends SearchAction {
 
         estadoCaperucita.setRowPosition(row);
 
-        if (estadoCaperucita.getWorldPosition(row, col) !=
-                PercepcionCaperucita.EMPTY_PERCEPTION) {
+        if (estadoCaperucita.getBosquePosition(row, col) != PercepcionCaperucita.EMPTY_PERCEPTION) {
 
-        	estadoCaperucita.setWorldPosition(row, col,
-                    PercepcionCaperucita.EMPTY_PERCEPTION);
+        	estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.EMPTY_PERCEPTION);
 
             return estadoCaperucita;
         }

@@ -25,10 +25,10 @@ public class IrAbajo extends SearchAction {
 
         estadoCaperucita.setRowPosition(row);
 
-        if (estadoCaperucita.getWorldPosition(row, col) ==
+        if (estadoCaperucita.getBosquePosition(row, col) ==
                 PercepcionCaperucita.OBSTACULO_PERCEPTION) {
 
-        	estadoCaperucita.setWorldPosition(row, col,
+        	estadoCaperucita.setBosquePosition(row, col,
                     PercepcionCaperucita.EMPTY_PERCEPTION);
         }
 
