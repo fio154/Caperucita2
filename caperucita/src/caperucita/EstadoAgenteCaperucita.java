@@ -10,14 +10,16 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
     private int[] initialPosition;
     private int vidas;
     private int visitedCells;
+    private int dulces;
 
-    public EstadoAgenteCaperucita(int[][] b, int row, int col, int e) {
+    public EstadoAgenteCaperucita(int[][] b, int row, int col, int e, int d) {
     	bosque = b;
         position = new int[] {row, col};
         initialPosition = new int[2];
         initialPosition[0] = row;
         initialPosition[1] = col;
         vidas = e;
+        dulces = d;
         visitedCells = 0;
     }
 
@@ -25,6 +27,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
     	bosque = new int[EstadoAmbienteCaperucita.CANT_FILAS][EstadoAmbienteCaperucita.CANT_COLUM];
         position = new int[2];
         vidas = 0;
+        dulces = 0;
         this.initState();
     }
 
@@ -43,7 +46,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         newPosition[0] = position[0];
         newPosition[1] = position[1];*/
 
-        EstadoAgenteCaperucita newState = new EstadoAgenteCaperucita(nuevoBosque, this.getRowPosition(), this.getColumnPosition(), this.vidas);
+        EstadoAgenteCaperucita newState = new EstadoAgenteCaperucita(nuevoBosque, this.getRowPosition(), this.getColumnPosition(), this.vidas, this.dulces);
 
         return newState;
     }
@@ -109,6 +112,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         this.setColumnPosition(1);*/
 
         this.setVidas(3);
+        this.setDulces(0);
     }
 
     @Override
@@ -119,9 +123,9 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         str = str + " vidas=\"" + vidas + "\"\n";
 
         str = str + "bosque=\"[ \n";
-        for (int row = 0; row < bosque.length; row++) {
+        for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
             str = str + "[ ";
-            for (int col = 0; col < bosque.length; col++) {
+            for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
                 if (bosque[row][col] == -1) {
                     str = str + "* ";
                 } else {
@@ -198,6 +202,15 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         this.vidas = vidas;
     }
 
+    public int getDulces() {
+        return dulces;
+    }
+
+    private void setDulces(int dulces) {
+        this.dulces = dulces;
+    }
+
+
     public boolean esAmbienteConocido() {
         for (int row = 0; row < bosque.length; row++) {
             for (int col = 0; col < bosque.length; col++) {
@@ -212,33 +225,29 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
 
     public int getCeldasNoConocidas() {
         int result = 0;
-
-        for (int row = 0; row < bosque.length; row++) {
-            for (int col = 0; col < bosque.length; col++) {
-                if (bosque[row][col] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-                    result++;
+            for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
+                for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
+                    if (bosque[row][col] != '*') {
+                        result++;
+                    }
                 }
-            }
         }
-
         return result;
     }
 
-    public int getRemainingFoodCount() {
+    public int getDulcesRestantes() {
         int result = 0;
-
-        for (int row = 0; row < bosque.length; row++) {
-            for (int col = 0; col < bosque.length; col++) {
+        for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
+            for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
                 if (bosque[row][col] == PercepcionCaperucita.DULCE_PERCEPTION) {
                     result++;
                 }
             }
         }
-        
         return result;
     }
 
-    public boolean isNoMoreFood() {
+    public boolean existenDulces() {  //ACOMODAR FUNCION
         for (int row = 0; row < bosque.length; row++) {
             for (int col = 0; col < bosque.length; col++) {
                 if (bosque[row][col] == PercepcionCaperucita.DULCE_PERCEPTION) {

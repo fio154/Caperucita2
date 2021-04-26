@@ -7,10 +7,13 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 	private int[][] mapa;
 	private int[] posicionCaperucita = new int[2];
 	private int vidas;
+	private int dulces;
 
 	private int CANT_OBSTACULOS = 15;
-	public static int CANT_FILAS = 7;
-	public static int CANT_COLUM = 9;
+	public static int CANT_DULCES = 3;
+	public static int CANT_VIDAS = 3;
+	public static int CANT_FILAS = 9;
+	public static int CANT_COLUM = 11;
 	
 	public EstadoAmbienteCaperucita (int[][] m) {
 		mapa= m;
@@ -28,40 +31,83 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 			}
 		}
 
-		mapa[0][0]=2;
+		mapa[0][0]=-1;
+		mapa[0][1]=-1;
+		mapa[0][2]=-1;
+		mapa[0][3]=-1;
 		mapa[0][4]=-1;
-		mapa[0][7]=2;
+		mapa[0][5]=-1;
+		mapa[0][6]=-1;
+		mapa[0][7]=-1;
 		mapa[0][8]=-1;
+		mapa[0][9]=-1;
+		mapa[0][10]=-1;
 
-		mapa[1][1]=-1;
-
-		mapa[2][5]=2;
-		mapa[2][6]=-1;
-
+		mapa[1][0]=-1;
+		mapa[2][0]=-1;
 		mapa[3][0]=-1;
-		mapa[3][1]=-1;
-		mapa[3][5]=-1;
+		mapa[4][0]=-1;
+		mapa[5][0]=-1;
+		mapa[6][0]=-1;
+		mapa[7][0]=-1;
+
+		mapa[8][0]=-1;
+		mapa[8][1]=-1;
+		mapa[8][2]=-1;
+		mapa[8][3]=-1;
+		mapa[8][4]=-1;
+		mapa[8][5]=-1;
+		mapa[8][6]=-1;
+		mapa[8][7]=-1;
+		mapa[8][8]=-1;
+		mapa[8][9]=-1;
+		mapa[8][10]=-1;
+
+		mapa[1][10]=-1;
+		mapa[2][10]=-1;
+		mapa[3][10]=-1;
+		mapa[4][10]=-1;
+		mapa[5][10]=-1;
+		mapa[6][10]=-1;
+		mapa[7][10]=-1;
+
+
+		mapa[1][1]=2;
+		mapa[1][5]=-1;
+		mapa[1][8]=2;
+		mapa[1][9]=-1;
+
+		mapa[2][2]=-1;
+
+		mapa[3][6]=2;
+		mapa[3][7]=-1;
 
 		mapa[4][1]=-1;
 		mapa[4][2]=-1;
+		mapa[4][6]=-1;
 
-		mapa[5][1]=1; //lobo
 		mapa[5][2]=-1;
 		mapa[5][3]=-1;
-		mapa[5][4]=-1;
-		mapa[5][6]=-1;
-		mapa[5][8]=-1;
 
+		mapa[6][2]=1; //lobo
 		mapa[6][3]=-1;
-		mapa[6][4]=3; //flores
-		mapa[6][8]=-1;
-		posicionCaperucita[0] = 4;
-		posicionCaperucita[1] = 8;
+		mapa[6][5]=-1;
+		mapa[6][5]=-1;
+		mapa[6][7]=-1;
+		mapa[6][9]=-1;
+
+		mapa[7][4]=-1;
+		mapa[7][5]=3; //flores
+		mapa[7][9]=-1;
+		posicionCaperucita[0] = 5;
+		posicionCaperucita[1] = 9;
 
 		/*generarPosicionFlores();
 		generarPosicionesObstaculosYLobo();
-		generarPosicionCaperucita();*/
-		this.setVidas(3);
+		generarPosicionCaperucita();
+		generarPosicionDulces();*/
+		this.setVidas(CANT_VIDAS);
+		this.setDulces(CANT_DULCES);
 	}
 	
 	@Override
@@ -69,9 +115,9 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 	    String str = "";
 	
 		str = str + "[ \n";
-		for (int row = 0; row < mapa.length; row++) {
+		for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
 		    str = str + "[ ";
-		    for (int col = 0; col < mapa.length; col++) {
+		    for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
 		    	str = str + mapa[row][col] + " ";
 		    }
 		    str = str + " ]\n";
@@ -108,6 +154,14 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 	public void setVidas(int vidas) {
 	    this.vidas = vidas;
 	}
+
+	public int getDulces() {
+		return dulces;
+	}
+
+	public void setDulces(int dulces) {
+		this.dulces = dulces;
+	}
 	
 	public int getTopCell(int row, int col) {
 	    if (row == 0) {
@@ -137,7 +191,7 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 	    return mapa[row + 1][col];
 	}
 	
-	public void generarPosicionFlores() {
+	public void generarPosicionFlores() { //fijarse que sea en el borde
 		int [] celda = generarCeldaAleatoria();
 		mapa[celda[0]][celda[1]] = 1; //Seteamos posición del camino de flores
 	}

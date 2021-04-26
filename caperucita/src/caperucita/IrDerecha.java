@@ -19,6 +19,8 @@ public class IrDerecha extends SearchAction {
 
         if (col < EstadoAmbienteCaperucita.CANT_COLUM-1) {
             col = col + 1;
+        } else {
+            System.out.println("entro en else");
         }
 
         estadoCaperucita.setColumnPosition(col);

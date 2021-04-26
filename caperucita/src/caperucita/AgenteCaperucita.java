@@ -9,6 +9,7 @@ import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.agent.search.Problem;
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgent;
+import frsf.cidisi.faia.solver.search.BreathFirstSearch;
 import frsf.cidisi.faia.solver.search.DepthFirstSearch;
 import frsf.cidisi.faia.solver.search.Search;
 
@@ -36,7 +37,10 @@ public class AgenteCaperucita extends SearchBasedAgent {
     @Override
     public Action selectAction() {
 
-        DepthFirstSearch strategy = new DepthFirstSearch();
+        //DepthFirstSearch strategy = new DepthFirstSearch(); //para cambiar el tipo de busqueda
+        //GreedySearch strategy = new GreedySearch(new Heuristica());
+        //UniformCostSearch strategy = new UnformCostSearch(new FuncionCosto());
+        BreathFirstSearch strategy = new BreathFirstSearch();
 
         Search searchSolver = new Search(strategy);
 

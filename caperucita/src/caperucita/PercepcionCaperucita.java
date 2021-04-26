@@ -16,9 +16,11 @@ public class PercepcionCaperucita extends Perception{
 	private int rightSensor;
 	private int bottomSensor;
 	private int vidas;
+	private int dulces;
 	
 	public PercepcionCaperucita() {
-		vidas= 3;
+		vidas = EstadoAmbienteCaperucita.CANT_VIDAS;
+		dulces = EstadoAmbienteCaperucita.CANT_DULCES;
 	}
 	
 	public PercepcionCaperucita(Agent agent, Environment environment) {
@@ -82,11 +84,21 @@ public class PercepcionCaperucita extends Perception{
         this.vidas = vidas;
     }
 
+    public int getDulces() {
+        return dulces;
+    }
+
+    public void setDulces(int dulces) {
+        this.dulces = dulces;
+    }
+
     @Override
     public String toString() {
         StringBuffer str = new StringBuffer();
 
         str.append("Vidas: " + this.vidas);
+        str.append("; ");
+        str.append("Dulces: " + this.dulces);
         str.append("; ");
         str.append("Left Sensor: " + this.leftSensor);
         str.append("; ");
