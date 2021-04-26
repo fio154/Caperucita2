@@ -1,4 +1,4 @@
-package caperucita;
+package caperucita.src.caperucita;
 
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
@@ -17,30 +17,25 @@ public class IrDerecha extends SearchAction {
         int row = estadoCaperucita.getRowPosition();
         int col = estadoCaperucita.getColumnPosition();
 
-        if (col < EstadoAmbienteCaperucita.CANT_COLUM-1) {
-            col = col + 1;
+        if (col == (EstadoAmbienteCaperucita.CANT_COLUM-1)) {
+            return null;
         } else {
-            System.out.println("entro en else");
+            col = col + 1;
+
+            for(int i=col; i<EstadoAmbienteCaperucita.CANT_COLUM; i++){
+                estadoCaperucita.setColumnPosition(col);
+
+                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    col = col - 1;
+                    estadoCaperucita.setColumnPosition(col);
+                    return estadoCaperucita;
+                }else{
+                    return null;
+                }
+            }
         }
 
-        estadoCaperucita.setColumnPosition(col);
-
-        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.OBSTACULO_PERCEPTION);
-        }
-        
-        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.EMPTY_PERCEPTION) {
-            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.EMPTY_PERCEPTION);
-        }
-        
-        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.DULCE_PERCEPTION) {
-            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.DULCE_PERCEPTION);
-        }
-        
-        if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.LOBO_PERCEPTION) {
-            estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.LOBO_PERCEPTION);
-        }
-
+        System.out.println("derecha: " + row + ", " + col);
         return estadoCaperucita;
     }
 
@@ -55,13 +50,25 @@ public class IrDerecha extends SearchAction {
         int row = environmentState.getPosicionCaperucita()[0];
         int col = environmentState.getPosicionCaperucita()[1];
 
-        if (col < EstadoAmbienteCaperucita.CANT_COLUM) {
+        if (col == (EstadoAmbienteCaperucita.CANT_COLUM-1)) {
+            return null;
+        } else {
             col = col + 1;
+
+            for(int i=col; i<EstadoAmbienteCaperucita.CANT_COLUM; i++){
+                environmentState.setPosicionCaperucita(new int[] {row, col});
+
+                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    col = col - 1;
+                    environmentState.setPosicionCaperucita(new int[] {row, col});
+                    return environmentState;
+                }else{
+                    return null;
+                }
+            }
         }
 
-        estadoCaperucita.setColumnPosition(col);
-
-        environmentState.setPosicionCaperucita(new int[] {row, col});
+        System.out.println("derechaAmbiente: " + row + ", " + col);
 
         return environmentState;
     }

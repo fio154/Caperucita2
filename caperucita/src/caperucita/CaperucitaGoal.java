@@ -1,4 +1,4 @@
-package caperucita;
+package caperucita.src.caperucita;
 
 import frsf.cidisi.faia.agent.search.GoalTest;
 import frsf.cidisi.faia.state.AgentState;
@@ -12,9 +12,14 @@ public class CaperucitaGoal extends GoalTest {
 
         int tipoCelda = ((EstadoAgenteCaperucita) agentState).getBosquePosition(fila, columna);
 
-        if (tipoCelda==PercepcionCaperucita.FLORES_PERCEPTION && ((EstadoAgenteCaperucita) agentState).getVidas()>=1) {
+        /*if (tipoCelda==PercepcionCaperucita.FLORES_PERCEPTION && ((EstadoAgenteCaperucita) agentState).getVidas()>=1) {
+            return true;
+        }*/
+
+        if (tipoCelda==PercepcionCaperucita.FLORES_PERCEPTION) {
             return true;
         }
-        return false;
+
+            return false;
     }
 }

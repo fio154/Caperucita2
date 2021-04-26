@@ -1,4 +1,4 @@
-package caperucita;
+package caperucita.src.caperucita;
 	
 import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Perception;

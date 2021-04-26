@@ -1,4 +1,4 @@
-package caperucita;
+package caperucita.src.caperucita;
 
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
@@ -17,49 +17,57 @@ public class IrArriba extends SearchAction {
         int row = estadoCaperucita.getRowPosition();
         int col = estadoCaperucita.getColumnPosition();
 
-        /*if (row == 0) {
-            row = 6;
+        if (row == 0) {
+            return null;
         } else {
             row = row - 1;
-        }*/
 
-        if(row < EstadoAmbienteCaperucita.CANT_FILAS-1){
-            row++;
+            for(int i=row; i<EstadoAmbienteCaperucita.CANT_FILAS; i++){
+                estadoCaperucita.setRowPosition(row);
+
+                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    row = row + 1;
+                    estadoCaperucita.setRowPosition(row);
+                }else{
+                    return null;
+                }
+            }
         }
 
-        estadoCaperucita.setRowPosition(row);
-
-        if (estadoCaperucita.getBosquePosition(row, col) != PercepcionCaperucita.EMPTY_PERCEPTION) {
-
-        	estadoCaperucita.setBosquePosition(row, col, PercepcionCaperucita.EMPTY_PERCEPTION);
-
-            return estadoCaperucita;
-        }
-
-        return null;
+        System.out.println("arriba: " + row + ", " + col);
+        return estadoCaperucita;
     }
 
     @Override
     public EnvironmentState execute(AgentState ast, EnvironmentState est) {
 
         EstadoAmbienteCaperucita environmentState = (EstadoAmbienteCaperucita) est;
-        EstadoAgenteCaperucita pacmanState = ((EstadoAgenteCaperucita) ast);
+        EstadoAgenteCaperucita estadoCaperucita = ((EstadoAgenteCaperucita) ast);
 
-        pacmanState.increaseVisitedCellsCount();
+        estadoCaperucita.increaseVisitedCellsCount();
 
         int row = environmentState.getPosicionCaperucita()[0];
         int col = environmentState.getPosicionCaperucita()[1];
 
-        // Check the limits of the world
         if (row == 0) {
-            row = 8;
+            return null;
         } else {
             row = row - 1;
+
+            for(int i=row; i<EstadoAmbienteCaperucita.CANT_FILAS; i++){
+                environmentState.setPosicionCaperucita(new int[] {row, col});
+
+                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    row = row + 1;
+                    environmentState.setPosicionCaperucita(new int[] {row, col});
+                    return environmentState;
+                }else{
+                    return null;
+                }
+            }
         }
 
-        pacmanState.setRowPosition(row);
-
-        environmentState.setPosicionCaperucita(new int[] {row, col});
+        System.out.println("arribaAmbiente: " + row + ", " + col);
         
         return environmentState;
     }
@@ -71,6 +79,6 @@ public class IrArriba extends SearchAction {
 
     @Override
     public String toString() {
-        return "GoUp";
+        return "IrArriba";
     }
 }

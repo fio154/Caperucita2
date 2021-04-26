@@ -1,4 +1,4 @@
-package caperucita;
+package caperucita.src.caperucita;
 
 import frsf.cidisi.faia.solver.search.IStepCostFunction;
 import frsf.cidisi.faia.solver.search.NTree;

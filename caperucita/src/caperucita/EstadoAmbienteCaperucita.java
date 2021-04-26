@@ -1,4 +1,4 @@
-package caperucita;
+package caperucita.src.caperucita;
 
 import frsf.cidisi.faia.state.EnvironmentState;
 
@@ -20,13 +20,13 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 	}
 	
 	public EstadoAmbienteCaperucita() {
-		mapa= new int[CANT_FILAS][CANT_COLUM];
+		mapa = new int[CANT_FILAS][CANT_COLUM];
 		this.initState();
 	}
 	
 	public void initState() {
-		for (int row = 0; row < mapa.length; row++) {
-			for (int col = 0; col < mapa.length; col++) {
+		for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
+			for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
 				mapa[row][col] = PercepcionCaperucita.EMPTY_PERCEPTION;
 			}
 		}
@@ -72,14 +72,14 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 		mapa[7][10]=-1;
 
 
-		mapa[1][1]=2;
+		//mapa[1][1]=2;
 		mapa[1][5]=-1;
-		mapa[1][8]=2;
+		//mapa[1][8]=2;
 		mapa[1][9]=-1;
 
 		mapa[2][2]=-1;
 
-		mapa[3][6]=2;
+		//mapa[3][6]=2;
 		mapa[3][7]=-1;
 
 		mapa[4][1]=-1;
@@ -89,7 +89,7 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 		mapa[5][2]=-1;
 		mapa[5][3]=-1;
 
-		mapa[6][2]=1; //lobo
+		//mapa[6][2]=1; //lobo
 		mapa[6][3]=-1;
 		mapa[6][5]=-1;
 		mapa[6][5]=-1;
@@ -165,27 +165,27 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 	
 	public int getTopCell(int row, int col) {
 	    if (row == 0) {
-	        return mapa[3][col];
+	        return mapa[EstadoAmbienteCaperucita.CANT_FILAS-1][col];
 	    }
 	    return mapa[row - 1][col];
 	}
 	
 	public int getLeftCell(int row, int col) {
 	    if (col == 0) {
-	        return mapa[row][3];
+	        return mapa[row][EstadoAmbienteCaperucita.CANT_COLUM-1];
 	    }
 	    return mapa[row][col - 1];
 	}
 	
 	public int getRightCell(int row, int col) {
-	    if (col == 8) {
+	    if (col == EstadoAmbienteCaperucita.CANT_COLUM-1) {
 	        return mapa[row][0];
 	    }
 	    return mapa[row][col + 1];
 	}
 	
 	public int getBottomCell(int row, int col) {
-	    if (row == 3) {
+	    if (row == EstadoAmbienteCaperucita.CANT_FILAS-1) {
 	        return mapa[0][col];
 	    }
 	    return mapa[row + 1][col];

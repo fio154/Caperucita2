@@ -1,4 +1,4 @@
-package caperucita;
+package caperucita.src.caperucita;
 
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
@@ -17,24 +17,27 @@ public class IrAbajo extends SearchAction {
         int row = estadoCaperucita.getRowPosition();
         int col = estadoCaperucita.getColumnPosition();
 
-        /*if (row == 6) {
-            row = 0;
+        System.out.println("CAPERUCITA: " + row + ", " + col);
+
+        if (row == (EstadoAmbienteCaperucita.CANT_FILAS-1)) {
+            return null;
         } else {
             row = row + 1;
-        }*/
 
-        if(row > 0){
-            row--;
+            for(int i=row; i<EstadoAmbienteCaperucita.CANT_FILAS; i++){
+                estadoCaperucita.setRowPosition(row);
+
+                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    row = row - 1;
+                    estadoCaperucita.setRowPosition(row);
+                    return estadoCaperucita;
+                }else{
+                    return null;
+                }
+            }
         }
 
-        estadoCaperucita.setRowPosition(row);
-
-        if (estadoCaperucita.getBosquePosition(row, col) ==
-                PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-
-        	estadoCaperucita.setBosquePosition(row, col,
-                    PercepcionCaperucita.EMPTY_PERCEPTION);
-        }
+        System.out.println("abajo: " + row + ", " + col);
 
         return estadoCaperucita;
     }
@@ -50,16 +53,28 @@ public class IrAbajo extends SearchAction {
         int row = environmentState.getPosicionCaperucita()[0];
         int col = environmentState.getPosicionCaperucita()[1];
 
-        if (row == 8) {
-            row = 0;
+        System.out.println("CAPERUCITA-ambiente: " + row + ", " + col);
+
+        if (row == (EstadoAmbienteCaperucita.CANT_FILAS-1)) {
+            return null;
         } else {
             row = row + 1;
+
+            for(int i=row; i<EstadoAmbienteCaperucita.CANT_FILAS; i++){
+                environmentState.setPosicionCaperucita(new int[] {row, col});
+
+                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    row = row - 1;
+                    environmentState.setPosicionCaperucita(new int[] {row, col});
+                    return environmentState;
+                }else{
+                    return null;
+                }
+            }
         }
 
-        estadoCaperucita.setRowPosition(row);
+        System.out.println("abajoAmbiente: " + row + ", " + col);
 
-        environmentState.setPosicionCaperucita(new int[] {row, col});
-        
         return environmentState;
     }
 
@@ -69,6 +84,6 @@ public class IrAbajo extends SearchAction {
     }
     @Override
     public String toString() {
-        return "GoDown";
+        return "IrAbajo";
     }
 }

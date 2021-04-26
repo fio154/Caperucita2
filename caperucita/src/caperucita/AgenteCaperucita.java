@@ -1,4 +1,4 @@
-package caperucita;
+package caperucita.src.caperucita;
 
 import java.util.Vector;
 import java.util.logging.Level;
@@ -10,7 +10,6 @@ import frsf.cidisi.faia.agent.search.Problem;
 import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgent;
 import frsf.cidisi.faia.solver.search.BreathFirstSearch;
-import frsf.cidisi.faia.solver.search.DepthFirstSearch;
 import frsf.cidisi.faia.solver.search.Search;
 
 public class AgenteCaperucita extends SearchBasedAgent {
@@ -20,15 +19,20 @@ public class AgenteCaperucita extends SearchBasedAgent {
         CaperucitaGoal goal = new CaperucitaGoal();
 
         EstadoAgenteCaperucita estadoCaperucita = new EstadoAgenteCaperucita();
+
         this.setAgentState(estadoCaperucita);
 
         Vector<SearchAction> operators = new Vector<SearchAction>();
-        //operators.addElement(new Eat());
-        //operators.addElement(new Fight());
-        operators.addElement(new IrIzquierda());
         operators.addElement(new IrArriba());
         operators.addElement(new IrDerecha());
         operators.addElement(new IrAbajo());
+        operators.addElement(new IrIzquierda());
+
+        operators.addElement(new IrArribaACampoFlores());
+        operators.addElement(new IrDerechaACampoFlores());
+        operators.addElement(new IrAbajoACampoFlores());
+        operators.addElement(new IrIzquierdaACampoFlores());
+
 
         Problem problem = new Problem(goal, estadoCaperucita, operators);
         this.setProblem(problem);

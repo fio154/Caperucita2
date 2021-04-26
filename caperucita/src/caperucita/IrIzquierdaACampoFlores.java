@@ -5,7 +5,7 @@ import frsf.cidisi.faia.agent.search.SearchBasedAgentState;
 import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
 
-public class IrIzquierda extends SearchAction {
+public class IrIzquierdaACampoFlores extends SearchAction {
 
     @Override
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
@@ -25,17 +25,17 @@ public class IrIzquierda extends SearchAction {
             for(int i=col; i<EstadoAmbienteCaperucita.CANT_COLUM; i++){
                 estadoCaperucita.setColumnPosition(col);
 
-                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-                    col = col + 1;
-                    estadoCaperucita.setColumnPosition(col);
+                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.FLORES_PERCEPTION) {
                     return estadoCaperucita;
                 }else{
+                    col = col + 1;
+                    estadoCaperucita.setColumnPosition(col);
                     return null;
                 }
             }
         }
 
-        System.out.println("izquierda: " + row + ", " + col);
+        System.out.println("izquierdaFLORES: " + row + ", " + col);
 
         return estadoCaperucita;
     }
@@ -60,17 +60,17 @@ public class IrIzquierda extends SearchAction {
             for(int i=col; i<EstadoAmbienteCaperucita.CANT_COLUM; i++){
                 environmentState.setPosicionCaperucita(new int[] {row, col});
 
-                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-                    col = col + 1;
-                    environmentState.setPosicionCaperucita(new int[] {row, col});
+                if (estadoCaperucita.getBosquePosition(row, col) != PercepcionCaperucita.FLORES_PERCEPTION) {
                     return environmentState;
                 }else{
+                    col = col + 1;
+                    environmentState.setPosicionCaperucita(new int[] {row, col});
                     return null;
                 }
             }
         }
 
-        System.out.println("izquierdaAmbiente: " + row + ", " + col);
+        System.out.println("izquierdaAmbienteFLORES: " + row + ", " + col);
 
         return environmentState;
     }
@@ -82,6 +82,6 @@ public class IrIzquierda extends SearchAction {
 
     @Override
     public String toString() {
-        return "IrIzquierda";
+        return "IrIzquierdaACampoFlores";
     }
 }

@@ -1,4 +1,4 @@
-package caperucita;
+package caperucita.src.caperucita;
 
 import frsf.cidisi.faia.exceptions.PrologConnectorException;
 import frsf.cidisi.faia.simulator.SearchBasedAgentSimulator;
@@ -10,8 +10,7 @@ public class MainBusquedaCaperucita{
 	    
 	    AmbienteCaperucita ambienteCaperucita = new AmbienteCaperucita();
 	    
-	    SearchBasedAgentSimulator simulator =
-	            new SearchBasedAgentSimulator(ambienteCaperucita, agenteCaperucita);
+	    SearchBasedAgentSimulator simulator = new SearchBasedAgentSimulator(ambienteCaperucita, agenteCaperucita);
 	    
 	    simulator.start();
 	}
