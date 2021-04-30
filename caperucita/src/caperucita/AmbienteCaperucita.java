@@ -32,7 +32,6 @@ public class AmbienteCaperucita extends Environment {
 
 	@Override
 	public boolean agentFailed(Action actionReturned) {
-		System.out.println("ACA: "+this.getEnvironmentState());
 		EstadoAmbienteCaperucita estadoAmbienteCaperucita = this.getEnvironmentState();
 		int vidasCaperucita = estadoAmbienteCaperucita.getVidas();
 

@@ -34,6 +34,8 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         vidas = EstadoAmbienteCaperucita.CANT_VIDAS;
         dulces = 0;
         positionFlores = new int[2];
+        positionFlores[0] = EstadoAmbienteCaperucita.FILA_FLORES;
+        positionFlores[1] = EstadoAmbienteCaperucita.COL_FLORES;
         this.initState();
     }
 
@@ -68,42 +70,46 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         int row = this.getRowPosition();
         int col = this.getColumnPosition();
 
-        if (col == 0) {
+        /*if (col == 0) {
             col = EstadoAmbienteCaperucita.CANT_COLUM-2;
         } else {
             col = col - 1;
-        }
+        }*/
+        col = col - 1;
         bosque[row][col] = percepcionCaperucita.getLeftSensor();
 
         row = this.getRowPosition();
         col = this.getColumnPosition();
 
-        if (col == EstadoAmbienteCaperucita.CANT_COLUM-2) {
+        /*if (col == EstadoAmbienteCaperucita.CANT_COLUM-2) {
             col = 0;
         } else {
             col = col + 1;
-        }
+        }*/
+        col = col + 1;
         bosque[row][col] = percepcionCaperucita.getRightSensor();
 
         row = this.getRowPosition();
         col = this.getColumnPosition();
 
-        if (row == 0) {
+        /*if (row == 0) {
             row = EstadoAmbienteCaperucita.CANT_FILAS-2;
         } else {
             row = row - 1;
-        }
+        }*/
+        row = row + 1;
         bosque[row][col] = percepcionCaperucita.getTopSensor();
 
 
         row = this.getRowPosition();
         col = this.getColumnPosition();
 
-        if (row == EstadoAmbienteCaperucita.CANT_FILAS-2) {
+        /*if (row == EstadoAmbienteCaperucita.CANT_FILAS-2) {
             row = 0;
         } else {
             row = row + 1;
-        }
+        }*/
+        row = row - 1;
         bosque[row][col] = percepcionCaperucita.getBottomSensor();
 
         vidas = percepcionCaperucita.getVidas();
@@ -229,19 +235,19 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
     public String toString() {
         String str = "";
 
-        str = str + " position=\"(" + getRowPosition() + "," + "" + getColumnPosition() + ")\"";
+        str = str + " position=\"(" + this.getRowPosition() + "," + "" + this.getColumnPosition() + ")\"";
         str = str + " vidas=\"" + vidas + "\"\n";
 
         str = str + "bosque=\"[ \n";
         for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
             str = str + "[ ";
             for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
-                if (bosque[row][col] == -1) {
-                    str = str + "*";
-                } else if(row==position[0] && col==position[1]){
-                    str = str + "C";
+                if(row==this.getRowPosition() && col==this.getColumnPosition()){
+                    str = str + " C ";
+                } else if (bosque[row][col] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    str = str + " * ";
                 } else {
-                    str = str + bosque[row][col] + " ";
+                    str = str + " " + bosque[row][col] + " ";
                 }
             }
             str = str + " ]\n";

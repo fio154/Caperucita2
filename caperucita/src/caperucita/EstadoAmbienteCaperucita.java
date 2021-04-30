@@ -16,7 +16,7 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 	public static int FILA_FLORES = 4;
 	public static int COL_FLORES = 2;
 	public static int FILA_CAPERUCITA = 1;
-	public static int COL_CAPERUCITA = 2;
+	public static int COL_CAPERUCITA = 1;
 
 	public EstadoAmbienteCaperucita (int[][] m) {
 		mapa= m;
@@ -152,6 +152,7 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 		for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
 			str = str + "[ ";
 			for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
+				if(mapa[row][col]!=PercepcionCaperucita.OBSTACULO_PERCEPTION) str = str + " ";
 				str = str + mapa[row][col] + " ";
 			}
 			str = str + " ]\n";
@@ -198,30 +199,34 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 	}
 
 	public int getTopCell(int row, int col) {
-		if (row == 0) {
+		/*if (row == 1) {
 			return mapa[EstadoAmbienteCaperucita.CANT_FILAS-2][col];
-		}
+		}*/
+		System.out.println("getTop");
 		return mapa[row - 1][col];
 	}
 
 	public int getLeftCell(int row, int col) {
-		if (col == 0) {
+		/*if (col == 1) {
 			return mapa[row][EstadoAmbienteCaperucita.CANT_COLUM-2];
-		}
+		}*/
+		System.out.println("getLeft");
 		return mapa[row][col - 1];
 	}
 
 	public int getRightCell(int row, int col) {
-		if (col == EstadoAmbienteCaperucita.CANT_COLUM-2) {
+		/*if (col == EstadoAmbienteCaperucita.CANT_COLUM-2) {
 			return mapa[row][1];
-		}
+		}*/
+		System.out.println("getRight");
 		return mapa[row][col + 1];
 	}
 
 	public int getBottomCell(int row, int col) {
-		if (row == EstadoAmbienteCaperucita.CANT_FILAS-2) {
+		/*if (row == EstadoAmbienteCaperucita.CANT_FILAS-2) {
 			return mapa[1][col];
-		}
+		}*/
+		System.out.println("getBottom");
 		return mapa[row + 1][col];
 	}
 
