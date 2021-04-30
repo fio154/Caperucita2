@@ -7,13 +7,15 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
 
     private int[][] bosque;
     private int[] position;
+    private int[] positionFlores;
     private int[] initialPosition;
     private int vidas;
     private int visitedCells;
     private int dulces;
 
-    public EstadoAgenteCaperucita(int[][] b, int row, int col, int e, int d) {
-    	bosque = b;
+
+    public EstadoAgenteCaperucita(int[][] b, int row, int col, int e, int d, int[] posFlores) {
+        bosque = b;
         position = new int[] {row, col};
         initialPosition = new int[2];
         initialPosition[0] = row;
@@ -21,13 +23,17 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         vidas = e;
         dulces = d;
         visitedCells = 0;
+        positionFlores = posFlores;
     }
 
     public EstadoAgenteCaperucita() {
-    	bosque = new int[EstadoAmbienteCaperucita.CANT_FILAS][EstadoAmbienteCaperucita.CANT_COLUM];
+        bosque = new int[EstadoAmbienteCaperucita.CANT_FILAS][EstadoAmbienteCaperucita.CANT_COLUM];
         position = new int[2];
-        vidas = 0;
+        position[0] = EstadoAmbienteCaperucita.FILA_CAPERUCITA;
+        position[1] = EstadoAmbienteCaperucita.COL_CAPERUCITA;
+        vidas = EstadoAmbienteCaperucita.CANT_VIDAS;
         dulces = 0;
+        positionFlores = new int[2];
         this.initState();
     }
 
@@ -42,11 +48,15 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
             }
         }
 
-        /*int[] newPosition = new int[2];
+        int[] newPosition = new int[2];
         newPosition[0] = position[0];
-        newPosition[1] = position[1];*/
+        newPosition[1] = position[1];
 
-        EstadoAgenteCaperucita newState = new EstadoAgenteCaperucita(bosque, this.getRowPosition(), this.getColumnPosition(), this.vidas, this.dulces);
+        int[] newPositionFlores = new int[2];
+        newPositionFlores[0] = positionFlores[0];
+        newPositionFlores[1] = positionFlores[1];
+
+        EstadoAgenteCaperucita newState = new EstadoAgenteCaperucita(nuevoBosque, newPosition[0], newPosition[1], this.vidas, this.dulces, newPositionFlores);
 
         return newState;
     }
@@ -59,7 +69,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         int col = this.getColumnPosition();
 
         if (col == 0) {
-            col = EstadoAmbienteCaperucita.CANT_COLUM-1;
+            col = EstadoAmbienteCaperucita.CANT_COLUM-2;
         } else {
             col = col - 1;
         }
@@ -68,7 +78,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         row = this.getRowPosition();
         col = this.getColumnPosition();
 
-        if (col == EstadoAmbienteCaperucita.CANT_COLUM-1) {
+        if (col == EstadoAmbienteCaperucita.CANT_COLUM-2) {
             col = 0;
         } else {
             col = col + 1;
@@ -79,7 +89,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         col = this.getColumnPosition();
 
         if (row == 0) {
-            row = EstadoAmbienteCaperucita.CANT_FILAS-1;
+            row = EstadoAmbienteCaperucita.CANT_FILAS-2;
         } else {
             row = row - 1;
         }
@@ -89,7 +99,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         row = this.getRowPosition();
         col = this.getColumnPosition();
 
-        if (row == EstadoAmbienteCaperucita.CANT_FILAS-1) {
+        if (row == EstadoAmbienteCaperucita.CANT_FILAS-2) {
             row = 0;
         } else {
             row = row + 1;
@@ -104,89 +114,120 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
     public void initState() {
         for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
             for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
-            	bosque[row][col] = PercepcionCaperucita.EMPTY_PERCEPTION;
+                bosque[row][col] = PercepcionCaperucita.EMPTY_PERCEPTION;
             }
         }
 
-        bosque[0][0]=-1;
-        bosque[0][1]=-1;
-        bosque[0][2]=-1;
-        bosque[0][3]=-1;
-        bosque[0][4]=-1;
-        bosque[0][5]=-1;
-        bosque[0][6]=-1;
-        bosque[0][7]=-1;
-        bosque[0][8]=-1;
-        bosque[0][9]=-1;
-        bosque[0][10]=-1;
+        /*bosque[0][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][1]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][3]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][4]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][6]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][7]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][8]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][9]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][10]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
-        bosque[1][0]=-1;
-        bosque[2][0]=-1;
-        bosque[3][0]=-1;
-        bosque[4][0]=-1;
-        bosque[5][0]=-1;
-        bosque[6][0]=-1;
-        bosque[7][0]=-1;
+        bosque[1][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[2][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[3][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[4][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[5][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[6][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[7][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
-        bosque[8][0]=-1;
-        bosque[8][1]=-1;
-        bosque[8][2]=-1;
-        bosque[8][3]=-1;
-        bosque[8][4]=-1;
-        bosque[8][5]=-1;
-        bosque[8][6]=-1;
-        bosque[8][7]=-1;
-        bosque[8][8]=-1;
-        bosque[8][9]=-1;
-        bosque[8][10]=-1;
+        bosque[8][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[8][1]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[8][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[8][3]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[8][4]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[8][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[8][6]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[8][7]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[8][8]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[8][9]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[8][10]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
-        bosque[1][10]=-1;
-        bosque[2][10]=-1;
-        bosque[3][10]=-1;
-        bosque[4][10]=-1;
-        bosque[5][10]=-1;
-        bosque[6][10]=-1;
-        bosque[7][10]=-1;
+        bosque[1][10]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[2][10]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[3][10]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[4][10]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[5][10]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[6][10]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[7][10]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
+        //bosque[1][1]= PercepcionCaperucita.DULCE_PERCEPTION;
+        bosque[1][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        //bosque[1][8]= PercepcionCaperucita.DULCE_PERCEPTION;
+        bosque[1][9]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
-        //mapa[1][1]=2;
-        bosque[1][5]=-1;
-        //mapa[1][8]=2;
-        bosque[1][9]=-1;
+        bosque[2][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
-        bosque[2][2]=-1;
+        //bosque[3][6]= PercepcionCaperucita.DULCE_PERCEPTION;
+        bosque[3][7]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
-        //mapa[3][6]=2;
-        bosque[3][7]=-1;
+        bosque[4][1]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[4][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[4][6]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
-        bosque[4][1]=-1;
-        bosque[4][2]=-1;
-        bosque[4][6]=-1;
+        bosque[5][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[5][3]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
-        bosque[5][2]=-1;
-        bosque[5][3]=-1;
+        //bosque[6][2]= PercepcionCaperucita.LOBO_PERCEPTION;
+        bosque[6][3]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[6][4]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[6][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[6][7]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[6][9]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
-        //mapa[6][2]=1; //lobo
-        bosque[6][3]=-1;
-        bosque[6][5]=-1;
-        bosque[6][5]=-1;
-        bosque[6][7]=-1;
-        bosque[6][9]=-1;
+        bosque[7][4]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[7][5]= PercepcionCaperucita.FLORES_PERCEPTION;
+        bosque[8][5]= PercepcionCaperucita.FLORES_PERCEPTION;
+        bosque[7][9]= PercepcionCaperucita.OBSTACULO_PERCEPTION;*/
 
-        bosque[7][4]=-1;
-        bosque[7][5]=3; //flores
-        bosque[7][9]=-1;
+        mapa6x6();
 
-        this.setRowPosition(5);
-        this.setColumnPosition(9);
+        this.setRowPosition(EstadoAmbienteCaperucita.FILA_CAPERUCITA);
+        this.setColumnPosition(EstadoAmbienteCaperucita.COL_CAPERUCITA);
 
-        this.setVidas(3);
+        this.setVidas(EstadoAmbienteCaperucita.CANT_VIDAS);
         this.setDulces(0);
+    }
+
+    public void mapa6x6(){
+        bosque[0][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][1]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][3]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][4]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[0][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+
+        bosque[5][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[5][1]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[5][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[5][3]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[5][4]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[5][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+
+        bosque[1][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[2][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[3][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[4][0]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+
+        bosque[1][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[2][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[3][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[4][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+
+        bosque[2][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+        bosque[4][2]= PercepcionCaperucita.FLORES_PERCEPTION;
     }
 
     @Override
     public String toString() {
-        /*String str = "";
+        String str = "";
 
         str = str + " position=\"(" + getRowPosition() + "," + "" + getColumnPosition() + ")\"";
         str = str + " vidas=\"" + vidas + "\"\n";
@@ -197,6 +238,8 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
             for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
                 if (bosque[row][col] == -1) {
                     str = str + "*";
+                } else if(row==position[0] && col==position[1]){
+                    str = str + "C";
                 } else {
                     str = str + bosque[row][col] + " ";
                 }
@@ -205,9 +248,9 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         }
         str = str + " ]\"";
 
-        return str;*/
+        return str;
 
-        String str = "";
+        /*String str = "";
 
         str = str + "[ \n";
         for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
@@ -219,38 +262,18 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         }
         str = str + " ]";
 
-        return str;
+        return str;*/
     }
 
     @Override
     public boolean equals(Object obj) {
-        /*if (!(obj instanceof EstadoAgenteCaperucita))
-            return false;
-
-        int[][] bosqueObj = ((EstadoAgenteCaperucita) obj).getBosque();
-        int[] positionObj = ((EstadoAgenteCaperucita) obj).getPosition();
-
-        for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
-            for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
-                if (bosque[row][col] != bosqueObj[row][col]) {
-                    return false;
-                }
-            }
-        }
-
-        if (position[0] != positionObj[0] || position[1] != positionObj[1]) {
-            return false;
-        }
-        
-        return true;*/
-
         return (obj instanceof EstadoAgenteCaperucita) &&
+                ((EstadoAgenteCaperucita) obj).getPositionFlores().equals(this.positionFlores) &&
                 ((EstadoAgenteCaperucita) obj).getVidas() == this.getVidas() &&
-                ((EstadoAgenteCaperucita) obj).getPosition().equals(this.getPosition());
-                //((EstadoAgenteCaperucita) obj).getDulces() == this.getDulces();
-
+                ((EstadoAgenteCaperucita) obj).getPosition().equals(this.getPosition()) &&
+                ((EstadoAgenteCaperucita) obj).getDulces() == this.getDulces();
     }
-    
+
     public int[][] getBosque() {
         return bosque;
     }
@@ -308,18 +331,18 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
                 }
             }
         }
-        
+
         return true;
     }
 
     public int getCeldasNoConocidas() {
         int result = 0;
-            for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
-                for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
-                    if (bosque[row][col] != '*') {
-                        result++;
-                    }
+        for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
+            for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
+                if (bosque[row][col] != '*') {
+                    result++;
                 }
+            }
         }
         return result;
     }
@@ -353,5 +376,13 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
 
     public void increaseVisitedCellsCount() {
         this.visitedCells += 1;
+    }
+
+    public int[] getPositionFlores() {
+        return positionFlores;
+    }
+
+    public void setPositionFlores(int[] positionFlores) {
+        this.positionFlores = positionFlores;
     }
 }

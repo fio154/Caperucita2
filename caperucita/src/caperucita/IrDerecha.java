@@ -6,7 +6,7 @@ import frsf.cidisi.faia.state.AgentState;
 import frsf.cidisi.faia.state.EnvironmentState;
 
 public class IrDerecha extends SearchAction {
-	
+
     @Override
     public SearchBasedAgentState execute(SearchBasedAgentState s) {
 
@@ -17,20 +17,22 @@ public class IrDerecha extends SearchAction {
         int row = estadoCaperucita.getRowPosition();
         int col = estadoCaperucita.getColumnPosition();
 
-        if (col == (EstadoAmbienteCaperucita.CANT_COLUM-1)) {
+        if (col == (EstadoAmbienteCaperucita.CANT_COLUM-2)) {
             return null;
         } else {
             col = col + 1;
 
-            for(int i=col; i<EstadoAmbienteCaperucita.CANT_COLUM; i++){
-                estadoCaperucita.setColumnPosition(col);
+            for(int i=col; i<EstadoAmbienteCaperucita.CANT_FILAS; i++){
+                estadoCaperucita.setColumnPosition(i);
 
-                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-                    col = col - 1;
+                if (estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    col = i - 1;
                     estadoCaperucita.setColumnPosition(col);
+                    System.out.println("derecha: " + row + ", " + col);
                     return estadoCaperucita;
-                }else{
-                    return null;
+                }else if(estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.FLORES_PERCEPTION){
+                    System.out.println("derecha: " + row + ", " + i);
+                    return estadoCaperucita;
                 }
             }
         }
@@ -50,20 +52,22 @@ public class IrDerecha extends SearchAction {
         int row = environmentState.getPosicionCaperucita()[0];
         int col = environmentState.getPosicionCaperucita()[1];
 
-        if (col == (EstadoAmbienteCaperucita.CANT_COLUM-1)) {
+        if (col == (EstadoAmbienteCaperucita.CANT_COLUM-2)) {
             return null;
         } else {
             col = col + 1;
 
-            for(int i=col; i<EstadoAmbienteCaperucita.CANT_COLUM; i++){
-                environmentState.setPosicionCaperucita(new int[] {row, col});
+            for(int i=col; i<EstadoAmbienteCaperucita.CANT_FILAS; i++){
+                environmentState.setPosicionCaperucita(new int[] {row, i});
 
-                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-                    col = col - 1;
+                if (estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    col = i - 1;
                     environmentState.setPosicionCaperucita(new int[] {row, col});
+                    System.out.println("derechaAmbiente: " + row + ", " + col);
                     return environmentState;
-                }else{
-                    return null;
+                }else if(estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.FLORES_PERCEPTION){
+                    System.out.println("derechaAmbiente: " + row + ", " + i);
+                    return environmentState;
                 }
             }
         }

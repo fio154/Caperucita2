@@ -23,13 +23,16 @@ public class IrArriba extends SearchAction {
             row = row - 1;
 
             for(int i=row; i<EstadoAmbienteCaperucita.CANT_FILAS; i++){
-                estadoCaperucita.setRowPosition(row);
+                estadoCaperucita.setRowPosition(i);
 
-                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-                    row = row + 1;
+                if (estadoCaperucita.getBosquePosition(i, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    row = i + 1;
                     estadoCaperucita.setRowPosition(row);
-                }else{
-                    return null;
+                    System.out.println("arriba: " + row + ", " + col);
+                    return estadoCaperucita;
+                }else if(estadoCaperucita.getBosquePosition(i, col) == PercepcionCaperucita.FLORES_PERCEPTION){
+                    System.out.println("arriba: " + i + ", " + col);
+                    return estadoCaperucita;
                 }
             }
         }
@@ -55,20 +58,22 @@ public class IrArriba extends SearchAction {
             row = row - 1;
 
             for(int i=row; i<EstadoAmbienteCaperucita.CANT_FILAS; i++){
-                environmentState.setPosicionCaperucita(new int[] {row, col});
+                environmentState.setPosicionCaperucita(new int[] {i, col});
 
-                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-                    row = row + 1;
+                if (estadoCaperucita.getBosquePosition(i, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    row = i + 1;
                     environmentState.setPosicionCaperucita(new int[] {row, col});
+                    System.out.println("arribaAmbiente: " + row + ", " + col);
                     return environmentState;
-                }else{
-                    return null;
+                }else if(estadoCaperucita.getBosquePosition(i, col) == PercepcionCaperucita.FLORES_PERCEPTION){
+                    System.out.println("arribaAmbiente: " + i + ", " + col);
+                    return environmentState;
                 }
             }
         }
 
         System.out.println("arribaAmbiente: " + row + ", " + col);
-        
+
         return environmentState;
     }
 

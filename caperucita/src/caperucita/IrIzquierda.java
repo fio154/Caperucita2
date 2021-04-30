@@ -22,15 +22,17 @@ public class IrIzquierda extends SearchAction {
         } else {
             col = col - 1;
 
-            for(int i=col; i<EstadoAmbienteCaperucita.CANT_COLUM; i++){
-                estadoCaperucita.setColumnPosition(col);
+            for(int i=col; i<EstadoAmbienteCaperucita.CANT_FILAS; i++){
+                estadoCaperucita.setColumnPosition(i);
 
-                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-                    col = col + 1;
+                if (estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    col = i + 1;
                     estadoCaperucita.setColumnPosition(col);
+                    System.out.println("izquierda: " + row + ", " + col);
                     return estadoCaperucita;
-                }else{
-                    return null;
+                }else if(estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.FLORES_PERCEPTION){
+                    System.out.println("izquierda: " + row + ", " + i);
+                    return estadoCaperucita;
                 }
             }
         }
@@ -57,19 +59,20 @@ public class IrIzquierda extends SearchAction {
         } else {
             col = col - 1;
 
-            for(int i=col; i<EstadoAmbienteCaperucita.CANT_COLUM; i++){
-                environmentState.setPosicionCaperucita(new int[] {row, col});
+            for(int i=col; i<EstadoAmbienteCaperucita.CANT_FILAS; i++){
+                environmentState.setPosicionCaperucita(new int[] {row, i});
 
-                if (estadoCaperucita.getBosquePosition(row, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-                    col = col + 1;
+                if (estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                    col = i + 1;
                     environmentState.setPosicionCaperucita(new int[] {row, col});
+                    System.out.println("izquierdaAmbiente: " + row + ", " + col);
                     return environmentState;
-                }else{
-                    return null;
+                }else if(estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.FLORES_PERCEPTION){
+                    System.out.println("izquierdaAmbiente: " + row + ", " + i);
+                    return environmentState;
                 }
             }
         }
-
         System.out.println("izquierdaAmbiente: " + row + ", " + col);
 
         return environmentState;

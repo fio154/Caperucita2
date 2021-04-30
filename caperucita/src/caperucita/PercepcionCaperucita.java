@@ -1,50 +1,50 @@
 package caperucita.src.caperucita;
-	
+
 import frsf.cidisi.faia.agent.Agent;
 import frsf.cidisi.faia.agent.Perception;
 import frsf.cidisi.faia.environment.Environment;
-	
+
 public class PercepcionCaperucita extends Perception{
 
-	public static int OBSTACULO_PERCEPTION = -1;
-	public static int EMPTY_PERCEPTION = 0;
-	public static int LOBO_PERCEPTION = 1;
-	public static int DULCE_PERCEPTION = 2;
+    public static int OBSTACULO_PERCEPTION = -1;
+    public static int EMPTY_PERCEPTION = 0;
+    public static int LOBO_PERCEPTION = 1;
+    public static int DULCE_PERCEPTION = 2;
     public static int FLORES_PERCEPTION = 3;
-	private int leftSensor;
-	private int topSensor;
-	private int rightSensor;
-	private int bottomSensor;
-	private int vidas;
-	private int dulces;
-	
-	public PercepcionCaperucita() {
-		vidas = EstadoAmbienteCaperucita.CANT_VIDAS;
-		dulces = EstadoAmbienteCaperucita.CANT_DULCES;
-	}
-	
-	public PercepcionCaperucita(Agent agent, Environment environment) {
-		super(agent, environment);
-	}
-	
-	public void initPerception(Agent agent, Environment environment) {
-		
-		AgenteCaperucita agenteCaperucita = (AgenteCaperucita) agent;
-		AmbienteCaperucita ambienteCaperucita = (AmbienteCaperucita) environment;
-		EstadoAmbienteCaperucita estadoAmbiente = ambienteCaperucita.getEnvironmentState();
-		
-		int row = estadoAmbiente.getPosicionCaperucita()[0];
-		int col = estadoAmbiente.getPosicionCaperucita()[1];
-		
-		this.setTopSensor(ambienteCaperucita.getTopCell(row, col));
-		this.setLeftSensor(ambienteCaperucita.getLeftCell(row, col));
-		this.setRightSensor(ambienteCaperucita.getRightCell(row, col));
-		this.setBottomSensor(ambienteCaperucita.getBottomCell(row, col));
-		
-	}
-	
-	
-	public int getLeftSensor() {
+    private int leftSensor;
+    private int topSensor;
+    private int rightSensor;
+    private int bottomSensor;
+    private int vidas;
+    private int dulces;
+
+    public PercepcionCaperucita() {
+        vidas = EstadoAmbienteCaperucita.CANT_VIDAS;
+        dulces = EstadoAmbienteCaperucita.CANT_DULCES;
+    }
+
+    public PercepcionCaperucita(Agent agent, Environment environment) {
+        super(agent, environment);
+    }
+
+    public void initPerception(Agent agent, Environment environment) {
+
+        AgenteCaperucita agenteCaperucita = (AgenteCaperucita) agent;
+        AmbienteCaperucita ambienteCaperucita = (AmbienteCaperucita) environment;
+        EstadoAmbienteCaperucita estadoAmbiente = ambienteCaperucita.getEnvironmentState();
+
+        int row = estadoAmbiente.getPosicionCaperucita()[0];
+        int col = estadoAmbiente.getPosicionCaperucita()[1];
+
+        this.setTopSensor(ambienteCaperucita.getTopCell(row, col));
+        this.setLeftSensor(ambienteCaperucita.getLeftCell(row, col));
+        this.setRightSensor(ambienteCaperucita.getRightCell(row, col));
+        this.setBottomSensor(ambienteCaperucita.getBottomCell(row, col));
+
+    }
+
+
+    public int getLeftSensor() {
         return leftSensor;
     }
 
@@ -110,5 +110,5 @@ public class PercepcionCaperucita extends Perception{
 
         return str.toString();
     }
-	
+
 }

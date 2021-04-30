@@ -1,5 +1,4 @@
 package caperucita.src.caperucita;
-
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +10,7 @@ import frsf.cidisi.faia.agent.search.SearchAction;
 import frsf.cidisi.faia.agent.search.SearchBasedAgent;
 import frsf.cidisi.faia.solver.search.BreathFirstSearch;
 import frsf.cidisi.faia.solver.search.Search;
+import frsf.cidisi.faia.solver.search.UniformCostSearch;
 
 public class AgenteCaperucita extends SearchBasedAgent {
 
@@ -24,15 +24,9 @@ public class AgenteCaperucita extends SearchBasedAgent {
 
         Vector<SearchAction> operators = new Vector<SearchAction>();
         operators.addElement(new IrArriba());
+        operators.addElement(new IrIzquierda());
         operators.addElement(new IrDerecha());
         operators.addElement(new IrAbajo());
-        operators.addElement(new IrIzquierda());
-
-        operators.addElement(new IrArribaACampoFlores());
-        operators.addElement(new IrDerechaACampoFlores());
-        operators.addElement(new IrAbajoACampoFlores());
-        operators.addElement(new IrIzquierdaACampoFlores());
-
 
         Problem problem = new Problem(goal, estadoCaperucita, operators);
         this.setProblem(problem);
@@ -43,7 +37,7 @@ public class AgenteCaperucita extends SearchBasedAgent {
 
         //DepthFirstSearch strategy = new DepthFirstSearch(); //para cambiar el tipo de busqueda
         //GreedySearch strategy = new GreedySearch(new Heuristica());
-        //UniformCostSearch strategy = new UnformCostSearch(new FuncionCosto());
+        //UniformCostSearch strategy = new UniformCostSearch(new FuncionCosto());
         BreathFirstSearch strategy = new BreathFirstSearch();
 
         Search searchSolver = new Search(strategy);
@@ -54,8 +48,7 @@ public class AgenteCaperucita extends SearchBasedAgent {
 
         Action selectedAction = null;
         try {
-            selectedAction =
-                    this.getSolver().solve(new Object[]{this.getProblem()});
+            selectedAction = this.getSolver().solve(new Object[]{this.getProblem()});
         } catch (Exception ex) {
             Logger.getLogger(AgenteCaperucita.class.getName()).log(Level.SEVERE, null, ex);
         }

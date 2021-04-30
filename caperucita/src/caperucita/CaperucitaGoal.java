@@ -12,14 +12,11 @@ public class CaperucitaGoal extends GoalTest {
 
         int tipoCelda = ((EstadoAgenteCaperucita) agentState).getBosquePosition(fila, columna);
 
-        /*if (tipoCelda==PercepcionCaperucita.FLORES_PERCEPTION && ((EstadoAgenteCaperucita) agentState).getVidas()>=1) {
-            return true;
-        }*/
-
-        if (tipoCelda==PercepcionCaperucita.FLORES_PERCEPTION) {
+        if (tipoCelda==PercepcionCaperucita.FLORES_PERCEPTION && ((EstadoAgenteCaperucita) agentState).getVidas()>=1) {
             return true;
         }
 
-            return false;
+        return false;
     }
 }
+
