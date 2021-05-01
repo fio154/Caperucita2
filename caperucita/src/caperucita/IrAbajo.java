@@ -27,13 +27,16 @@ public class IrAbajo extends SearchAction {
             for(int i=row; i<(EstadoAmbienteCaperucita.CANT_FILAS); i++){
                 estadoCaperucita.setRowPosition(i);
 
+                System.out.println(estadoCaperucita.getBosquePosition(i, col));
                 if (estadoCaperucita.getBosquePosition(i, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
                     row = i - 1;
                     estadoCaperucita.setRowPosition(row);
                     //System.out.println("abajo: " + row + ", " + col);
-                    return null;
+                    return estadoCaperucita;
+                   // return null;
                 }else if(estadoCaperucita.getBosquePosition(i, col) == PercepcionCaperucita.FLORES_PERCEPTION){
                     //System.out.println("abajo: " + i + ", " + col);
+
                     return estadoCaperucita;
                 }
             }

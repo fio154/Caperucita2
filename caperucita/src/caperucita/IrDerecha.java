@@ -29,7 +29,8 @@ public class IrDerecha extends SearchAction {
                     col = i - 1;
                     estadoCaperucita.setColumnPosition(col);
                     //System.out.println("derecha: " + row + ", " + col);
-                    return null;
+                    return estadoCaperucita;
+                    // return null;
                 }else if(estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.FLORES_PERCEPTION){
                     //System.out.println("derecha: " + row + ", " + i);
                     return estadoCaperucita;

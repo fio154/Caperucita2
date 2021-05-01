@@ -20,6 +20,7 @@ public class AgenteCaperucita extends SearchBasedAgent {
 
         this.setAgentState(estadoCaperucita);
 
+        //System.out.println("Entra aca");
         Vector<SearchAction> operators = new Vector<SearchAction>();
         operators.addElement(new IrArriba());
         operators.addElement(new IrIzquierda());

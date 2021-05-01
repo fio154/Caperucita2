@@ -70,7 +70,10 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         int row = this.getRowPosition();
         int col = this.getColumnPosition();
 
-        col = col - 1;
+        position[0] = row;
+        position[1] = col;
+
+   /*     col = col - 1;
         bosque[row][col] = percepcionCaperucita.getLeftSensor();
 
         col = this.getColumnPosition();
@@ -84,10 +87,9 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         row = this.getRowPosition();
         row = row + 1;
         bosque[row][col] = percepcionCaperucita.getBottomSensor();
-
+*/
         vidas = percepcionCaperucita.getVidas();
     }
-
 
     @Override
     public void initState() {
@@ -166,7 +168,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         bosque[8][5]= PercepcionCaperucita.FLORES_PERCEPTION;
         bosque[7][9]= PercepcionCaperucita.OBSTACULO_PERCEPTION;*/
 
-        //mapa6x6();
+        mapa6x6();
 
         this.setRowPosition(EstadoAmbienteCaperucita.FILA_CAPERUCITA);
         this.setColumnPosition(EstadoAmbienteCaperucita.COL_CAPERUCITA);

@@ -17,6 +17,7 @@ public class IrArriba extends SearchAction {
         int row = estadoCaperucita.getRowPosition();
         int col = estadoCaperucita.getColumnPosition();
 
+        //System.out.println("entra aca");
         if (row == 0) {
             return null;
         } else {
@@ -29,7 +30,8 @@ public class IrArriba extends SearchAction {
                     row = i + 1;
                     estadoCaperucita.setRowPosition(row);
                     //System.out.println("arriba: " + row + ", " + col);
-                    return null;
+                    return estadoCaperucita;
+                   // return null;
                 }else if(estadoCaperucita.getBosquePosition(i, col) == PercepcionCaperucita.FLORES_PERCEPTION){
                     //System.out.println("arriba: " + i + ", " + col);
                     return estadoCaperucita;
