@@ -29,16 +29,16 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
     public EstadoAgenteCaperucita() {
         bosque = new int[EstadoAmbienteCaperucita.CANT_FILAS][EstadoAmbienteCaperucita.CANT_COLUM];
         position = new int[2];
-        position[0] = EstadoAmbienteCaperucita.FILA_CAPERUCITA;
-        position[1] = EstadoAmbienteCaperucita.COL_CAPERUCITA;
         vidas = EstadoAmbienteCaperucita.CANT_VIDAS;
         dulces = 0;
         positionFlores = new int[2];
+        initialPosition = new int[2];
+        initialPosition[0] = EstadoAmbienteCaperucita.FILA_CAPERUCITA;
+        initialPosition[1] = EstadoAmbienteCaperucita.COL_CAPERUCITA;
         positionFlores[0] = EstadoAmbienteCaperucita.FILA_FLORES;
         positionFlores[1] = EstadoAmbienteCaperucita.COL_FLORES;
         this.initState();
     }
-
 
     @Override
     public SearchBasedAgentState clone() {
@@ -70,46 +70,19 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         int row = this.getRowPosition();
         int col = this.getColumnPosition();
 
-        /*if (col == 0) {
-            col = EstadoAmbienteCaperucita.CANT_COLUM-2;
-        } else {
-            col = col - 1;
-        }*/
         col = col - 1;
         bosque[row][col] = percepcionCaperucita.getLeftSensor();
 
-        row = this.getRowPosition();
         col = this.getColumnPosition();
-
-        /*if (col == EstadoAmbienteCaperucita.CANT_COLUM-2) {
-            col = 0;
-        } else {
-            col = col + 1;
-        }*/
         col = col + 1;
         bosque[row][col] = percepcionCaperucita.getRightSensor();
 
-        row = this.getRowPosition();
         col = this.getColumnPosition();
-
-        /*if (row == 0) {
-            row = EstadoAmbienteCaperucita.CANT_FILAS-2;
-        } else {
-            row = row - 1;
-        }*/
-        row = row + 1;
+        row = row - 1;
         bosque[row][col] = percepcionCaperucita.getTopSensor();
 
-
         row = this.getRowPosition();
-        col = this.getColumnPosition();
-
-        /*if (row == EstadoAmbienteCaperucita.CANT_FILAS-2) {
-            row = 0;
-        } else {
-            row = row + 1;
-        }*/
-        row = row - 1;
+        row = row + 1;
         bosque[row][col] = percepcionCaperucita.getBottomSensor();
 
         vidas = percepcionCaperucita.getVidas();
@@ -193,7 +166,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         bosque[8][5]= PercepcionCaperucita.FLORES_PERCEPTION;
         bosque[7][9]= PercepcionCaperucita.OBSTACULO_PERCEPTION;*/
 
-        mapa6x6();
+        //mapa6x6();
 
         this.setRowPosition(EstadoAmbienteCaperucita.FILA_CAPERUCITA);
         this.setColumnPosition(EstadoAmbienteCaperucita.COL_CAPERUCITA);
@@ -242,12 +215,15 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {
             str = str + "[ ";
             for (int col = 0; col < EstadoAmbienteCaperucita.CANT_COLUM; col++) {
-                if(row==this.getRowPosition() && col==this.getColumnPosition()){
+
+                if(bosque[row][col] == PercepcionCaperucita.FLORES_PERCEPTION){
+                    str = str + " F ";
+                } else if(row==this.getRowPosition() && col==this.getColumnPosition()){
                     str = str + " C ";
+                } else if(bosque[row][col] == PercepcionCaperucita.EMPTY_PERCEPTION){
+                    str = str + " - ";
                 } else if (bosque[row][col] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
                     str = str + " * ";
-                } else {
-                    str = str + " " + bosque[row][col] + " ";
                 }
             }
             str = str + " ]\n";
@@ -327,7 +303,6 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
     private void setDulces(int dulces) {
         this.dulces = dulces;
     }
-
 
     public boolean esAmbienteConocido() {
         for (int row = 0; row < bosque.length; row++) {

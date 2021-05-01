@@ -202,7 +202,6 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 		/*if (row == 1) {
 			return mapa[EstadoAmbienteCaperucita.CANT_FILAS-2][col];
 		}*/
-		System.out.println("getTop");
 		return mapa[row - 1][col];
 	}
 
@@ -210,7 +209,6 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 		/*if (col == 1) {
 			return mapa[row][EstadoAmbienteCaperucita.CANT_COLUM-2];
 		}*/
-		System.out.println("getLeft");
 		return mapa[row][col - 1];
 	}
 
@@ -218,7 +216,6 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 		/*if (col == EstadoAmbienteCaperucita.CANT_COLUM-2) {
 			return mapa[row][1];
 		}*/
-		System.out.println("getRight");
 		return mapa[row][col + 1];
 	}
 
@@ -226,7 +223,6 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 		/*if (row == EstadoAmbienteCaperucita.CANT_FILAS-2) {
 			return mapa[1][col];
 		}*/
-		System.out.println("getBottom");
 		return mapa[row + 1][col];
 	}
 

@@ -19,19 +19,19 @@ public class IrAbajo extends SearchAction {
 
         //System.out.println("CAPERUCITA: " + row + ", " + col);
 
-        if (row >= (EstadoAmbienteCaperucita.CANT_FILAS-2)) {
+        if (row >= (EstadoAmbienteCaperucita.CANT_FILAS-1)) {
             return null;
         } else {
             row = row + 1;
 
-            for(int i=row; i<(EstadoAmbienteCaperucita.CANT_FILAS-1); i++){
+            for(int i=row; i<(EstadoAmbienteCaperucita.CANT_FILAS); i++){
                 estadoCaperucita.setRowPosition(i);
 
                 if (estadoCaperucita.getBosquePosition(i, col) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
                     row = i - 1;
                     estadoCaperucita.setRowPosition(row);
                     //System.out.println("abajo: " + row + ", " + col);
-                    return estadoCaperucita;
+                    return null;
                 }else if(estadoCaperucita.getBosquePosition(i, col) == PercepcionCaperucita.FLORES_PERCEPTION){
                     //System.out.println("abajo: " + i + ", " + col);
                     return estadoCaperucita;
@@ -57,7 +57,7 @@ public class IrAbajo extends SearchAction {
 
         //System.out.println("CAPERUCITA-ambiente: " + row + ", " + col);
 
-        if (row >= (EstadoAmbienteCaperucita.CANT_FILAS-2)) {
+        if (row >= (EstadoAmbienteCaperucita.CANT_FILAS-1)) {
             return null;
         } else {
             row = row + 1;
@@ -69,7 +69,7 @@ public class IrAbajo extends SearchAction {
                     row = i - 1;
                     environmentState.setPosicionCaperucita(new int[] {row, col});
                     //System.out.println("abajoAmbiente: " + row + ", " + col);
-                    return environmentState;
+                    return null;
                 }else if(estadoCaperucita.getBosquePosition(i, col) == PercepcionCaperucita.FLORES_PERCEPTION){
                     //System.out.println("abajoAmbiente: " + i + ", " + col);
                     return environmentState;

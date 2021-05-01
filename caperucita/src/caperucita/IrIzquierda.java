@@ -22,14 +22,14 @@ public class IrIzquierda extends SearchAction {
         } else {
             col = col - 1;
 
-            for(int i=col; i>0; i--){
+            for(int i=col; i>=0; i--){
                 estadoCaperucita.setColumnPosition(i);
 
                 if (estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
                     col = i + 1;
                     estadoCaperucita.setColumnPosition(col);
                     //System.out.println("izquierda: " + row + ", " + col);
-                    return estadoCaperucita;
+                    return null;
                 }else if(estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.FLORES_PERCEPTION){
                     //System.out.println("izquierda: " + row + ", " + i);
                     return estadoCaperucita;
@@ -59,14 +59,14 @@ public class IrIzquierda extends SearchAction {
         } else {
             col = col - 1;
 
-            for(int i=col; i>0; i--){
+            for(int i=col; i>=0; i--){
                 environmentState.setPosicionCaperucita(new int[] {row, i});
 
                 if (estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
                     col = i + 1;
                     environmentState.setPosicionCaperucita(new int[] {row, col});
                     //System.out.println("izquierdaAmbiente: " + row + ", " + col);
-                    return environmentState;
+                    return null;
                 }else if(estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.FLORES_PERCEPTION){
                     //System.out.println("izquierdaAmbiente: " + row + ", " + i);
                     return environmentState;

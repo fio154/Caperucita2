@@ -16,7 +16,7 @@ public class CaperucitaGoal extends GoalTest {
             return true;
         }
 
-        System.out.println("ACÁ");
+        //System.out.println("ACÁ");
         return false;
     }
 }
