@@ -12,24 +12,27 @@ public class IrIzquierda extends SearchAction {
 
         EstadoAgenteCaperucita estadoCaperucita = (EstadoAgenteCaperucita) s;
 
-        estadoCaperucita.increaseVisitedCellsCount();
+       estadoCaperucita.increaseVisitedCellsCount();
 
         int row = estadoCaperucita.getRowPosition();
         int col = estadoCaperucita.getColumnPosition();
 
-        boolean avanza = false;
+        if (estadoCaperucita.getBosquePosition(row, col-1) == PercepcionCaperucita.OBSTACULO_PERCEPTION){
+            return null;
+        }
 
         for(int i=col; i>=1; i--){
-            if (estadoCaperucita.getBosquePosition(row, i-1) == PercepcionCaperucita.OBSTACULO_PERCEPTION && avanza) {
+
+            if (estadoCaperucita.getBosquePosition(row,i-1) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                estadoCaperucita.setColumnPosition(i);
                 return estadoCaperucita;
-            }else if (estadoCaperucita.getBosquePosition(row, i-1) == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-                return null;
-            }else if(estadoCaperucita.getBosquePosition(row, i-1) == PercepcionCaperucita.FLORES_PERCEPTION){
+            }
+
+            if(estadoCaperucita.getBosquePosition(row,i-1) == PercepcionCaperucita.FLORES_PERCEPTION){
                 estadoCaperucita.setColumnPosition(i-1);
                 return estadoCaperucita;
-            }else estadoCaperucita.setColumnPosition(i-1);
+            }
 
-            avanza = true;
         }
 
         //System.out.println("izquierda: " + row + ", " + col);
@@ -49,19 +52,30 @@ public class IrIzquierda extends SearchAction {
         int row = environmentState.getPosicionCaperucita()[0];
         int col = environmentState.getPosicionCaperucita()[1];
 
-        boolean avanza = false;
+        if (estadoCaperucita.getBosquePosition(row, col-1) == PercepcionCaperucita.OBSTACULO_PERCEPTION){
+            return null;
+        }
 
-        for(int i=col; i>=1; i--){
-            if (environmentState.getMapa()[row][i-1] == PercepcionCaperucita.OBSTACULO_PERCEPTION && avanza) {
+        for(int i=col; i>=0; i--){
+
+            if(estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.DULCE_PERCEPTION){
+                estadoCaperucita.setDulces(estadoCaperucita.getDulces()+1);
+                environmentState.setMapa(row, i, PercepcionCaperucita.EMPTY_PERCEPTION);
+                estadoCaperucita.setBosquePosition(row, i, PercepcionCaperucita.EMPTY_PERCEPTION);
+            }
+
+            if (environmentState.getMapa()[row][i-1] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
+                estadoCaperucita.setColumnPosition(i);
+                environmentState.setPosicionCaperucita(new int[] {row, i});
                 return environmentState;
-            }else if (environmentState.getMapa()[row][i-1] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
-                return null;
-            }else if(environmentState.getMapa()[row][i-1] == PercepcionCaperucita.FLORES_PERCEPTION){
+            }
+
+            if(environmentState.getMapa()[row][i-1] == PercepcionCaperucita.FLORES_PERCEPTION){
+                estadoCaperucita.setColumnPosition(i-1);
                 environmentState.setPosicionCaperucita(new int[] {row, i-1});
                 return environmentState;
-            }else environmentState.setPosicionCaperucita(new int[] {row, i-1});
+            }
 
-            avanza = true;
         }
 
         //System.out.println("izquierdaAmbiente: " + row + ", " + col);

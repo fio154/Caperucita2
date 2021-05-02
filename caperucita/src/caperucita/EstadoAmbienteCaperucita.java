@@ -6,17 +6,16 @@ import frsf.cidisi.faia.state.EnvironmentState;
 public class EstadoAmbienteCaperucita extends EnvironmentState {
 
 	private int[][] mapa;
-	private int[] posicionCaperucita = new int[2];
+	private int[] posicionCaperucita;
 	private int vidas;
 	private int dulces;
 
 	private int CANT_OBSTACULOS = 15;
-	public static int CANT_DULCES = 3;
 	public static int CANT_VIDAS = 3;
 	public static int CANT_FILAS = 6;
 	public static int CANT_COLUM = 6;
-	public static int FILA_FLORES = 4;
-	public static int COL_FLORES = 2;
+	public static int FILA_FLORES = 1;
+	public static int COL_FLORES = 3;
 	public static int FILA_CAPERUCITA = 1;
 	public static int COL_CAPERUCITA = 1;
 
@@ -27,7 +26,7 @@ public class EstadoAmbienteCaperucita extends EnvironmentState {
 	public EstadoAmbienteCaperucita() {
 		mapa = new int[CANT_FILAS][CANT_COLUM];
 		vidas = CANT_VIDAS;
-		dulces = CANT_DULCES;
+		posicionCaperucita = new int[2];
 		this.initState();
 	}
 
@@ -103,7 +102,7 @@ public class EstadoAmbienteCaperucita extends EnvironmentState {
       mapa[6][9]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
       mapa[7][4]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
-      mapa[7][5]= PercepcionCaperucita.FLORES_PERCEPTION;
+      mapa[EstadoAmbienteCaperucita.FILA_FLORES][EstadoAmbienteCaperucita.COL_FLORES]= PercepcionCaperucita.FLORES_PERCEPTION;
       mapa[8][5]= PercepcionCaperucita.FLORES_PERCEPTION;
       mapa[7][9]= PercepcionCaperucita.OBSTACULO_PERCEPTION;*/
 
@@ -143,8 +142,17 @@ public class EstadoAmbienteCaperucita extends EnvironmentState {
 		mapa[3][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 		mapa[4][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
+		//mapa[1][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+
 		mapa[2][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+
+		mapa[2][4]= PercepcionCaperucita.DULCE_PERCEPTION;
+		mapa[4][3]= PercepcionCaperucita.DULCE_PERCEPTION;
+		mapa[3][1]= PercepcionCaperucita.DULCE_PERCEPTION;
+
 		mapa[EstadoAmbienteCaperucita.FILA_FLORES][EstadoAmbienteCaperucita.COL_FLORES]= PercepcionCaperucita.FLORES_PERCEPTION;
+
+		mapa[4][3]= PercepcionCaperucita.LOBO_PERCEPTION;
 	}
 
 	@Override
@@ -201,33 +209,124 @@ public class EstadoAmbienteCaperucita extends EnvironmentState {
 		this.dulces = dulces;
 	}
 
-	public int getTopCell(int row, int col) {
-		/*if (row == 1) {
-			return mapa[EstadoAmbienteCaperucita.CANT_FILAS-2][col];
-		}*/
-		return mapa[row - 1][col];
+	public int[] getTopCellDulce(int row, int col) {
+
+		int[] posicion = new int[2];
+
+		for(int i=row; i>=1; i--){
+			if(getMapa()[i-1][col] == PercepcionCaperucita.DULCE_PERCEPTION){
+				posicion[0] = i - 1;
+				posicion[1] = col;
+				return posicion;
+			}
+		}
+
+		return posicion;
 	}
 
-	public int getLeftCell(int row, int col) {
-		/*if (col == 1) {
-			return mapa[row][EstadoAmbienteCaperucita.CANT_COLUM-2];
-		}*/
-		return mapa[row][col - 1];
+	public int[] getLeftCellDulce(int row, int col) {
+
+		int[] posicion = new int[2];
+
+		for(int i=col; i>=1; i--){
+			if(getMapa()[row][i-1] == PercepcionCaperucita.DULCE_PERCEPTION){
+				posicion[0] = row;
+				posicion[1] = i - 1;
+				return posicion;
+			}
+		}
+
+		return posicion;
+
 	}
 
-	public int getRightCell(int row, int col) {
-		/*if (col == EstadoAmbienteCaperucita.CANT_COLUM-2) {
-			return mapa[row][1];
-		}*/
-		return mapa[row][col + 1];
+	public int[] getRightCellDulce(int row, int col) {
+		int[] posicion = new int[2];
+
+		for(int i=col; i<(EstadoAmbienteCaperucita.CANT_COLUM-1); i++){
+			if(getMapa()[row][i + 1] == PercepcionCaperucita.DULCE_PERCEPTION){
+				posicion[0] = row;
+				posicion[1] = i + 1;
+				return posicion;
+			}
+		}
+
+		return posicion;
 	}
 
-	public int getBottomCell(int row, int col) {
-		/*if (row == EstadoAmbienteCaperucita.CANT_FILAS-2) {
-			return mapa[1][col];
-		}*/
-		return mapa[row + 1][col];
+	public int[] getBottomCellDulce(int row, int col) {
+		int[] posicion = new int[2];
+
+		for(int i=row; i<(EstadoAmbienteCaperucita.CANT_FILAS-1); i++){
+			if(getMapa()[i + 1][col] == PercepcionCaperucita.DULCE_PERCEPTION){
+				posicion[0] = i + 1;
+				posicion[1] = col;
+				return posicion;
+			}
+		}
+
+		return posicion;
 	}
+
+	public int[] getTopCellLobo(int row, int col) {
+
+		int[] posicion = new int[2];
+
+		for(int i=row; i>=1; i--){
+			if(getMapa()[i-1][col] == PercepcionCaperucita.LOBO_PERCEPTION){
+				posicion[0] = i - 1;
+				posicion[1] = col;
+				return posicion;
+			}
+		}
+
+		return posicion;
+	}
+
+	public int[] getLeftCellLobo(int row, int col) {
+
+		int[] posicion = new int[2];
+
+		for(int i=col; i>=1; i--){
+			if(getMapa()[row][i-1] == PercepcionCaperucita.LOBO_PERCEPTION){
+				posicion[0] = row;
+				posicion[1] = i - 1;
+				return posicion;
+			}
+		}
+
+		return posicion;
+
+	}
+
+	public int[] getRightCellLobo(int row, int col) {
+		int[] posicion = new int[2];
+
+		for(int i=col; i<(EstadoAmbienteCaperucita.CANT_COLUM-1); i++){
+			if(getMapa()[row][i + 1] == PercepcionCaperucita.LOBO_PERCEPTION){
+				posicion[0] = row;
+				posicion[1] = i + 1;
+				return posicion;
+			}
+		}
+
+		return posicion;
+	}
+
+	public int[] getBottomCellLobo(int row, int col) {
+		int[] posicion = new int[2];
+
+		for(int i=row; i<(EstadoAmbienteCaperucita.CANT_FILAS-1); i++){
+			if(getMapa()[i + 1][col] == PercepcionCaperucita.LOBO_PERCEPTION){
+				posicion[0] = i + 1;
+				posicion[1] = col;
+				return posicion;
+			}
+		}
+
+		return posicion;
+	}
+
 
 	public void generarPosicionFlores() { //fijarse que sea en el borde
 		int [] celda = generarCeldaAleatoria();
