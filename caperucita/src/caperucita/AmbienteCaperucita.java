@@ -33,13 +33,9 @@ public class AmbienteCaperucita extends Environment {
 	@Override
 	public boolean agentFailed(Action actionReturned) {
 		EstadoAmbienteCaperucita estadoAmbienteCaperucita = this.getEnvironmentState();
+		System.out.println(estadoAmbienteCaperucita);
 		int vidasCaperucita = estadoAmbienteCaperucita.getVidas();
-
-		int fila = estadoAmbienteCaperucita.getPosicionCaperucita()[0];
-		int columna = estadoAmbienteCaperucita.getPosicionCaperucita()[1];
-
-		int tipoCelda = estadoAmbienteCaperucita.getMapa()[fila][columna];
-		if (vidasCaperucita <= 0 || tipoCelda==PercepcionCaperucita.OBSTACULO_PERCEPTION)return true;
+		if (vidasCaperucita <= 0)return true;
 
 		return false;
 	}

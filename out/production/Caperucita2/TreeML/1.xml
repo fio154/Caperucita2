@@ -1,4 +1,4 @@
-<tree id="0" edgedefault="directed">
+<tree id="1" edgedefault="directed">
 <node Id="0" Action="null" Cost="0.0" Estado_Agente=" position=&quot;(1,1)&quot; vidas=&quot;3&quot;
 bosque=&quot;[ 
 [  *  *  *  *  *  *  ]

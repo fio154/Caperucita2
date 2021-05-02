@@ -1,7 +1,9 @@
 package caperucita.src.caperucita;
+
+
 import frsf.cidisi.faia.state.EnvironmentState;
 
-public class EstadoAmbienteCaperucita extends EnvironmentState{
+public class EstadoAmbienteCaperucita extends EnvironmentState {
 
 	private int[][] mapa;
 	private int[] posicionCaperucita = new int[2];
@@ -24,6 +26,8 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 
 	public EstadoAmbienteCaperucita() {
 		mapa = new int[CANT_FILAS][CANT_COLUM];
+		vidas = CANT_VIDAS;
+		dulces = CANT_DULCES;
 		this.initState();
 	}
 
@@ -107,12 +111,11 @@ public class EstadoAmbienteCaperucita extends EnvironmentState{
 		posicionCaperucita[0] = EstadoAmbienteCaperucita.FILA_CAPERUCITA;
 		posicionCaperucita[1] = EstadoAmbienteCaperucita.COL_CAPERUCITA;
 
+
       /*generarPosicionFlores();
       generarPosicionesObstaculosYLobo();
       generarPosicionCaperucita();
       generarPosicionDulces();*/
-		this.setVidas(CANT_VIDAS);
-		this.setDulces(CANT_DULCES);
 	}
 
 	public void mapa6x6(){
