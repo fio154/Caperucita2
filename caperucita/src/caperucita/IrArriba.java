@@ -69,12 +69,14 @@ public class IrArriba extends SearchAction {
             if (environmentState.getMapa()[i-1][col] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
                 estadoCaperucita.setRowPosition(i);
                 environmentState.setPosicionCaperucita(new int[] {i, col});
+                environmentState.cambiarPosicionLobo(i, col, estadoCaperucita);
                 return environmentState;
             }
 
             if(environmentState.getMapa()[i-1][col] == PercepcionCaperucita.FLORES_PERCEPTION){
                 estadoCaperucita.setRowPosition(i-1);
                 environmentState.setPosicionCaperucita(new int[] {i-1, col});
+                environmentState.cambiarPosicionLobo(i-1, col, estadoCaperucita);
                 return environmentState;
             }
 

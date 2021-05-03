@@ -72,12 +72,14 @@ public class IrIzquierda extends SearchAction {
             if (environmentState.getMapa()[row][i-1] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {
                 estadoCaperucita.setColumnPosition(i);
                 environmentState.setPosicionCaperucita(new int[] {row, i});
+                environmentState.cambiarPosicionLobo(row, i, estadoCaperucita);
                 return environmentState;
             }
 
             if(environmentState.getMapa()[row][i-1] == PercepcionCaperucita.FLORES_PERCEPTION){
                 estadoCaperucita.setColumnPosition(i-1);
                 environmentState.setPosicionCaperucita(new int[] {row, i-1});
+                environmentState.cambiarPosicionLobo(row, i-1, estadoCaperucita);
                 return environmentState;
             }
 

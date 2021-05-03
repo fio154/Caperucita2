@@ -1,0 +1,53 @@
+<tree id="11" edgedefault="directed">
+<node Id="0" Action="null" Cost="0.0" Estado_Agente=" position=&quot;(7,4)&quot; vidas=&quot;2  dulces= 2&quot;
+bosque=&quot;[ 
+[  *  *  *  *  *  *  *  *  *  *  ]
+[  *  *  *  -  -  *  *  *  *  *  ]
+[  *  *  -  -  -  *  *  -  *  *  ]
+[  *  *  *  -  -  -  -  -  -  *  ]
+[  *  -  *  *  -  *  -  *  -  *  ]
+[  *  -  -  *  -  *  -  *  -  *  ]
+[  *  -  -  -  -  -  -  *  -  *  ]
+[  *  *  *  *  F  *  -  -  -  *  ]
+[  *  *  *  *  *  *  *  *  *  *  ]
+ ]&quot;"/>
+<node Id="1" Action="IrIzquierda" Cost="1.0" Estado_Agente=" position=&quot;(1,3)&quot; vidas=&quot;2  dulces= 1&quot;
+bosque=&quot;[ 
+[  *  *  *  *  *  *  *  *  *  *  ]
+[  *  *  *  C  -  *  *  *  *  *  ]
+[  *  *  -  -  -  *  *  -  *  *  ]
+[  *  *  *  -  -  -  -  -  -  *  ]
+[  *  -  *  *  -  *  -  *  -  *  ]
+[  *  -  -  *  D  *  -  *  -  *  ]
+[  *  -  -  -  -  -  -  *  -  *  ]
+[  *  *  *  *  F  *  -  -  -  *  ]
+[  *  *  *  *  *  *  *  *  *  *  ]
+ ]&quot;"/>
+<node Id="2" Action="IrAbajo" Cost="1.0" Estado_Agente=" position=&quot;(7,4)&quot; vidas=&quot;2  dulces= 1&quot;
+bosque=&quot;[ 
+[  *  *  *  *  *  *  *  *  *  *  ]
+[  *  *  *  -  -  *  *  *  *  *  ]
+[  *  *  -  -  -  *  *  -  *  *  ]
+[  *  *  *  -  -  -  -  -  -  *  ]
+[  *  -  *  *  -  *  -  *  -  *  ]
+[  *  -  -  *  D  *  -  *  -  *  ]
+[  *  -  -  -  -  -  -  *  -  *  ]
+[  *  *  *  *  F  *  -  -  -  *  ]
+[  *  *  *  *  *  *  *  *  *  *  ]
+ ]&quot;"/>
+<node Id="3" Action="IrAbajo" Cost="2.0" Estado_Agente=" position=&quot;(3,3)&quot; vidas=&quot;2  dulces= 1&quot;
+bosque=&quot;[ 
+[  *  *  *  *  *  *  *  *  *  *  ]
+[  *  *  *  -  -  *  *  *  *  *  ]
+[  *  *  -  -  -  *  *  -  *  *  ]
+[  *  *  *  C  -  -  -  -  -  *  ]
+[  *  -  *  *  -  *  -  *  -  *  ]
+[  *  -  -  *  D  *  -  *  -  *  ]
+[  *  -  -  -  -  -  -  *  -  *  ]
+[  *  *  *  *  F  *  -  -  -  *  ]
+[  *  *  *  *  *  *  *  *  *  *  ]
+ ]&quot;"/>
+<edge source="0" target="1"/>
+<edge source="0" target="2"/>
+<edge source="1" target="3"/>
+</tree>

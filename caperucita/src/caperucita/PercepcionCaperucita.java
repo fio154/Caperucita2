@@ -8,7 +8,7 @@ public class PercepcionCaperucita extends Perception{
 
     public static int OBSTACULO_PERCEPTION = -1;
     public static int EMPTY_PERCEPTION = 0;
-    public static int LOBO_PERCEPTION = 1;
+    public static int LOBO_PERCEPTION = 5;
     public static int DULCE_PERCEPTION = 2;
     public static int FLORES_PERCEPTION = 3;
     private int[] leftSensorDulce;
@@ -142,8 +142,6 @@ public class PercepcionCaperucita extends Perception{
     public String toString() {
         StringBuffer str = new StringBuffer();
 
-        str.append("Dulces: " + this.dulces);
-        str.append("; ");
         str.append("Left Sensor: (" + this.leftSensorDulce[0] + ", " + this.leftSensorDulce[1] + ")");
         str.append("; ");
         str.append("Up Sensor: (" + this.topSensorDulce[0] + ", " + this.topSensorDulce[1] + ")");
