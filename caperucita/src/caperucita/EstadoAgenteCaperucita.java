@@ -88,6 +88,27 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         setBosquePosition(topSensorDulce[0], topSensorDulce[1], PercepcionCaperucita.DULCE_PERCEPTION);
         setBosquePosition(bottomSensorDulce[0], bottomSensorDulce[1], PercepcionCaperucita.DULCE_PERCEPTION);
 
+        int contDulce = 0;
+
+        percepcionCaperucita.setDulces(0);
+
+        if(getBosquePosition(leftSensorDulce[0], leftSensorDulce[1])==PercepcionCaperucita.DULCE_PERCEPTION){
+            percepcionCaperucita.setDulces(contDulce+1);
+        }
+
+        if(getBosquePosition(rightSensorDulce[0], rightSensorLobo[1])==PercepcionCaperucita.DULCE_PERCEPTION){
+            percepcionCaperucita.setDulces(contDulce+1);
+        }
+
+        if(getBosquePosition(topSensorDulce[0], topSensorDulce[1])==PercepcionCaperucita.DULCE_PERCEPTION){
+            percepcionCaperucita.setDulces(contDulce+1);
+        }
+
+        if(getBosquePosition(bottomSensorDulce[0], bottomSensorDulce[1])==PercepcionCaperucita.DULCE_PERCEPTION){
+            percepcionCaperucita.setDulces(contDulce+1);
+        }
+
+
         setBosquePosition(leftSensorLobo[0], leftSensorLobo[1], PercepcionCaperucita.LOBO_PERCEPTION);
         setBosquePosition(rightSensorLobo[0], rightSensorLobo[1], PercepcionCaperucita.LOBO_PERCEPTION);
         setBosquePosition(topSensorLobo[0], topSensorLobo[1], PercepcionCaperucita.LOBO_PERCEPTION);
@@ -223,7 +244,7 @@ public class EstadoAgenteCaperucita extends SearchBasedAgentState {
         String str = "";
 
         str = str + " position=\"(" + position[0] + "," + "" + position[1] + ")\"";
-        str = str + " vidas=\"" + vidas + "\"\n";
+        str = str + " vidas=\"" + vidas + "  dulces= " + this.getDulces() + "\"\n";
 
         str = str + "bosque=\"[ \n";
         for (int row = 0; row < EstadoAmbienteCaperucita.CANT_FILAS; row++) {

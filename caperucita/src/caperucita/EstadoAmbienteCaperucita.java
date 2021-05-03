@@ -11,6 +11,7 @@ public class EstadoAmbienteCaperucita extends EnvironmentState {
 	private int dulces;
 
 	private int CANT_OBSTACULOS = 15;
+	public static int CANT_DULCES = 3;
 	public static int CANT_VIDAS = 3;
 	public static int CANT_FILAS = 6;
 	public static int CANT_COLUM = 6;
@@ -142,17 +143,23 @@ public class EstadoAmbienteCaperucita extends EnvironmentState {
 		mapa[3][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 		mapa[4][5]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
-		//mapa[1][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
+		mapa[1][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
 		mapa[2][2]= PercepcionCaperucita.OBSTACULO_PERCEPTION;
 
 		mapa[2][4]= PercepcionCaperucita.DULCE_PERCEPTION;
-		mapa[4][3]= PercepcionCaperucita.DULCE_PERCEPTION;
+		mapa[4][2]= PercepcionCaperucita.DULCE_PERCEPTION;
 		mapa[3][1]= PercepcionCaperucita.DULCE_PERCEPTION;
 
 		mapa[EstadoAmbienteCaperucita.FILA_FLORES][EstadoAmbienteCaperucita.COL_FLORES]= PercepcionCaperucita.FLORES_PERCEPTION;
 
 		mapa[4][3]= PercepcionCaperucita.LOBO_PERCEPTION;
+
+		/*generarLoboAleatorio();
+		generarDulceAleatorio();
+		generarDulceAleatorio();
+		generarDulceAleatorio();*/
+
 	}
 
 	@Override
@@ -327,7 +334,6 @@ public class EstadoAmbienteCaperucita extends EnvironmentState {
 		return posicion;
 	}
 
-
 	public void generarPosicionFlores() { //fijarse que sea en el borde
 		int [] celda = generarCeldaAleatoria();
 		mapa[celda[0]][celda[1]] = 1; //Seteamos posición del camino de flores
@@ -358,11 +364,71 @@ public class EstadoAmbienteCaperucita extends EnvironmentState {
 		posicionCaperucita[1] = celda[1];
 	}
 
+	public void generarDulceAleatorio(){
+		int[] pos = generarCeldaAleatoria();
+
+		while (getMapa()[pos[0]][pos[1]]!=PercepcionCaperucita.EMPTY_PERCEPTION || (pos[0]==EstadoAmbienteCaperucita.FILA_CAPERUCITA && pos[1]==EstadoAmbienteCaperucita.COL_CAPERUCITA)){
+			pos = generarCeldaAleatoria();
+		}
+
+		setMapa(pos[0], pos[1], PercepcionCaperucita.DULCE_PERCEPTION);
+	}
+
+	public void generarLoboAleatorio(){
+		int[] pos = generarCeldaAleatoria();
+
+		while (getMapa()[pos[0]][pos[1]]!=PercepcionCaperucita.EMPTY_PERCEPTION || (pos[0]==EstadoAmbienteCaperucita.FILA_CAPERUCITA && pos[1]==EstadoAmbienteCaperucita.COL_CAPERUCITA)){
+			pos = generarCeldaAleatoria();
+		}
+
+		setMapa(pos[0], pos[1], PercepcionCaperucita.LOBO_PERCEPTION);
+	}
+
 	public int[] generarCeldaAleatoria() { //Generamos una fila y columna aleatorias
 		int[] celda = new int[2];
-		celda[0] = (int) Math.floor(Math.random()*CANT_FILAS);
-		celda[1] = (int) Math.floor(Math.random()*CANT_COLUM);
+		celda[0] = (int) Math.floor(Math.random()*(CANT_FILAS-2));
+		celda[1] = (int) Math.floor(Math.random()*(CANT_COLUM-2));
 		return celda;
+	}
+
+	public void reiniciarMapa(int row, int col, EstadoAgenteCaperucita estadoAgenteCaperucita){
+
+		this.setVidas(getVidas()-1);
+		estadoAgenteCaperucita.setVidas(estadoAgenteCaperucita.getVidas()-1);
+
+		int[] pos = new int[2];
+		pos[0] = EstadoAmbienteCaperucita.FILA_CAPERUCITA;
+		pos[1] = EstadoAmbienteCaperucita.COL_CAPERUCITA;
+		this.setPosicionCaperucita(pos);
+		estadoAgenteCaperucita.setRowPosition(EstadoAmbienteCaperucita.FILA_CAPERUCITA);
+		estadoAgenteCaperucita.setColumnPosition(EstadoAmbienteCaperucita.COL_CAPERUCITA);
+
+		this.setMapa(row, col, PercepcionCaperucita.EMPTY_PERCEPTION);
+		estadoAgenteCaperucita.setBosquePosition(row, col, PercepcionCaperucita.EMPTY_PERCEPTION);
+
+		estadoAgenteCaperucita.setDulces(0);
+
+		for(int i=0; i<CANT_FILAS; i++){
+			for(int j=0; j<CANT_COLUM; j++){
+				if(getMapa()[i][j]==PercepcionCaperucita.DULCE_PERCEPTION){
+					setMapa(i, j, PercepcionCaperucita.EMPTY_PERCEPTION);
+				}
+			}
+		}
+
+		for(int i=0; i<CANT_FILAS; i++){
+			for(int j=0; j<CANT_COLUM; j++){
+				if(estadoAgenteCaperucita.getBosquePosition(i,j)==PercepcionCaperucita.DULCE_PERCEPTION){
+					estadoAgenteCaperucita.setBosquePosition(i, j, PercepcionCaperucita.EMPTY_PERCEPTION);
+				}
+			}
+		}
+
+		generarLoboAleatorio();
+
+		generarDulceAleatorio();
+		generarDulceAleatorio();
+		generarDulceAleatorio();
 	}
 
 }

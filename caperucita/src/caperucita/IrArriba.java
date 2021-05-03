@@ -55,10 +55,15 @@ public class IrArriba extends SearchAction {
 
         for(int i=row; i>=1; i--){
 
-            if(estadoCaperucita.getBosquePosition(i, col) == PercepcionCaperucita.DULCE_PERCEPTION){
+            if(environmentState.getMapa()[i][col] == PercepcionCaperucita.DULCE_PERCEPTION){
                 estadoCaperucita.setDulces(estadoCaperucita.getDulces()+1);
                 environmentState.setMapa(i, col, PercepcionCaperucita.EMPTY_PERCEPTION);
                 estadoCaperucita.setBosquePosition(i, col, PercepcionCaperucita.EMPTY_PERCEPTION);
+            }
+
+            if(environmentState.getMapa()[i][col] == PercepcionCaperucita.LOBO_PERCEPTION){
+                environmentState.reiniciarMapa(i, col, estadoCaperucita);
+                return environmentState;
             }
 
             if (environmentState.getMapa()[i-1][col] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {

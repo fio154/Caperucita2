@@ -58,10 +58,15 @@ public class IrIzquierda extends SearchAction {
 
         for(int i=col; i>=0; i--){
 
-            if(estadoCaperucita.getBosquePosition(row, i) == PercepcionCaperucita.DULCE_PERCEPTION){
+            if(environmentState.getMapa()[row][i] == PercepcionCaperucita.DULCE_PERCEPTION){
                 estadoCaperucita.setDulces(estadoCaperucita.getDulces()+1);
                 environmentState.setMapa(row, i, PercepcionCaperucita.EMPTY_PERCEPTION);
                 estadoCaperucita.setBosquePosition(row, i, PercepcionCaperucita.EMPTY_PERCEPTION);
+            }
+
+            if(environmentState.getMapa()[row][i] == PercepcionCaperucita.LOBO_PERCEPTION){
+                environmentState.reiniciarMapa(row, i, estadoCaperucita);
+                return environmentState;
             }
 
             if (environmentState.getMapa()[row][i-1] == PercepcionCaperucita.OBSTACULO_PERCEPTION) {

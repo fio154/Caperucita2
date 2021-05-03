@@ -142,8 +142,6 @@ public class PercepcionCaperucita extends Perception{
     public String toString() {
         StringBuffer str = new StringBuffer();
 
-        str.append("Vidas: " + this.vidas);
-        str.append("; ");
         str.append("Dulces: " + this.dulces);
         str.append("; ");
         str.append("Left Sensor: (" + this.leftSensorDulce[0] + ", " + this.leftSensorDulce[1] + ")");
@@ -153,6 +151,18 @@ public class PercepcionCaperucita extends Perception{
         str.append("Right Sensor: (" + this.rightSensorDulce[0] + ", " + this.rightSensorDulce[1] + ")");
         str.append("; ");
         str.append("Down Sensor: (" + this.bottomSensorDulce[0] + ", " + this.bottomSensorDulce[1] + ")");
+
+        str.append("\n");
+        str.append("\n");
+        str.append("Perception Lobo: ");
+        str.append("Left Sensor: (" + this.leftSensorLobo[0] + ", " + this.leftSensorLobo[1] + ")");
+        str.append("; ");
+        str.append("Up Sensor: (" + this.topSensorLobo[0] + ", " + this.topSensorLobo[1] + ")");
+        str.append("; ");
+        str.append("Right Sensor: (" + this.rightSensorLobo[0] + ", " + this.rightSensorLobo[1] + ")");
+        str.append("; ");
+        str.append("Down Sensor: (" + this.bottomSensorLobo[0] + ", " + this.bottomSensorLobo[1] + ")");
+        str.append("\n");
 
         return str.toString();
     }
